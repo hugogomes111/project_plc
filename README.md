@@ -1,7 +1,7 @@
 # project_plc
 
 ## 👨‍🎓 Gustavo 
-**Número:** A  
+**Número:** A101777
 
 ## 👨‍🎓 Hugo Gameiro Gomes  
 **Número:** A100056  
