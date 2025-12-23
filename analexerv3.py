@@ -16,10 +16,8 @@ tokens = (
     'ID', 'INT', 'BOOLEAN','REAL', 'STR', 'COMMENT', 'BOOL'
 )
 
-# Símbolos literais (de um caractere) - usados diretamente na gramática
 literals = ( '+', '-', '*', '/', '=', '<', '>', '[', ']', '.', ',', ':', ';', '^', '(', ')' )
 
-# Palavras reservadas para mapeamento
 reserved = {
     'and': 'AND',
     'array': 'ARRAY',
