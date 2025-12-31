@@ -6,17 +6,15 @@ tokens = (
     'AND', 'ARRAY', 'BEGIN', 'CASE', 'CONST', 'DIV', 'DO', 'DOWNTO', 'ELSE', 'END',
     'FILE', 'FOR', 'FUNCTION', 'GOTO', 'IF', 'IN', 'LABEL', 'MOD', 'NIL', 'NOT',
     'OF', 'OR', 'PACKED', 'PROCEDURE', 'PROGRAM', 'RECORD', 'REPEAT', 'SET', 'STRING', 'THEN',
-    'TO', 'TYPE', 'UNTIL', 'VAR', 'WHILE', 'WITH', 'FORWARD', 'INTEGER', 'WRITELN',
-    # simbolos especiais de um caractere
-    #'PLUS', 'MINUS', 'TIMES', 'SLASH', 'EQUAL', 'LESS', 'GREATER', 'LBRACKET', 'RBRACKET',
-    #'PERIOD', 'COMMA', 'COLON', 'SEMICOLON', 'CARET', 'LPAREN', 'RPAREN',
+    'TO', 'TYPE', 'UNTIL', 'VAR', 'WHILE', 'WITH', 'FORWARD', 'INTEGER', 'WRITELN', 'READLN',
+    'LENGTH', 'TRUE', 'FALSE', 'CHAR', 'REALTYPE', 'WRITE', 'READ',
     # simbolos
     'NE', 'LE', 'GE', 'ASSIGN', 'DOTDOT',
     # tipos de dados
-    'ID', 'INT', 'BOOLEAN','REAL', 'STR', 'COMMENT', 'BOOL'
+    'ID', 'INT', 'BOOLEAN', 'REAL', 'STR', 'COMMENT'
 )
 
-literals = ( '+', '-', '*', '/', '=', '<', '>', '[', ']', '.', ',', ':', ';', '^', '(', ')' )
+literals = ('+', '-', '*', '/', '=', '<', '>', '[', ']', '.', ',', ':', ';', '^', '(', ')')
 
 reserved = {
     'and': 'AND',
@@ -24,6 +22,7 @@ reserved = {
     'begin': 'BEGIN',
     'boolean': 'BOOLEAN',
     'case': 'CASE',
+    'char': 'CHAR',
     'const': 'CONST',
     'div': 'DIV',
     'do': 'DO',
@@ -46,6 +45,9 @@ reserved = {
     'packed': 'PACKED',
     'procedure': 'PROCEDURE',
     'program': 'PROGRAM',
+    'read': 'READ',
+    'readln': 'READLN',
+    'real': 'REALTYPE',
     'record': 'RECORD',
     'repeat': 'REPEAT',
     'set': 'SET',
@@ -57,10 +59,13 @@ reserved = {
     'var': 'VAR',
     'while': 'WHILE',
     'with': 'WITH',
+    'write': 'WRITE',
     'writeln': 'WRITELN',
     'forward': 'FORWARD',
+    'length': 'LENGTH',
+    'true': 'TRUE',
+    'false': 'FALSE',
 }
-
 
 def t_COMMENT(t):
     r'\(\*[^*]*\*+(?:[^*)*][^*]*\*+)*\)|\{[^}]*\}'
@@ -102,79 +107,7 @@ def t_DOTDOT(t):
     r'\.\.'
     return t
 
-"""
-def t_PLUS(t):
-    r'\+'
-    return t
-
-def t_MINUS(t):
-    r'-'
-    return t
-
-def t_TIMES(t):
-    r'\*'
-    return t
-
-def t_SLASH(t):
-    r'/'
-    return t
-
-def t_EQUAL(t):
-    r'='
-    return t
-
-def t_LESS(t):
-    r'<'
-    return t
-
-def t_GREATER(t):
-    r'>'
-    return t
-
-def t_LBRACKET(t):
-    r'\['
-    return t
-
-def t_RBRACKET(t):
-    r'\]'
-    return t
-
-def t_PERIOD(t):
-    r'\.'
-    return t
-
-def t_COMMA(t):
-    r','
-    return t
-
-def t_COLON(t):
-    r':'
-    return t
-
-def t_SEMICOLON(t):
-    r';'
-    return t
-
-def t_CARET(t):
-    r'\^'
-    return t
-
-def t_LPAREN(t):
-    r'\('
-    return t
-
-def t_RPAREN(t):
-    r'\)'
-    return t
-
-"""
-
-def t_BOOL(t):
-    r'(?:True)|(?:False)'
-    t.type = "BOOL"
-    return t
-
-def t_IDENTIFIER(t):
+def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
     t.type = reserved.get(t.value.lower(), 'ID') 
     return t
@@ -190,42 +123,3 @@ def t_error(t):
     t.lexer.skip(1)
 
 lexer = lex.lex()
-
-
-exemplo1 = """
-program Hello;
-begin
-    writeln('Hello, world!');
-end.
-"""
-
-exemplo2 = """
-{ Este é um comentário }
-(* Este é outro comentário *)
-(* Comentário com múltiplas
-    linhas e caracteres especiais: ( ) { } *)
-const
-    max = 100;
-var
-    x, y: integer; (*bla bla bla *)
-    a: array[1..10] of real; { bla bla bla }
-begin
-    x := 10;
-    y := 20;
-    if x < y then
-        writeln('x é menor que y');
-    for i := 1 to 10 do
-        a[i] := i * 3.14;
-end.
-"""
-
-exemplo3 = """
-(* Isto é um comentário *)
-x := 10 * 5;  { Isto é outro comentário }
-(**)  { Este é um comentário vazio? }
-"""
-"""
-lexer.input(exemplo3)
-for token in lexer:
-    print(token)
-"""
