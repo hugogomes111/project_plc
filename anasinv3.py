@@ -9,12 +9,34 @@ def p_Code(t):
     r'Code : Declarations BEGIN Blocks END'
     t[0] = "\n".join(t[1] + ["start"] + ["".join(t[3])])
 
-def p_Declarations(t):
+def p_Declarations_vars(t):
     r'Declarations : Vars Declarations'
+    t[0] = t[1] + t[2]
+
+def p_Declarations_consts(t):
+    r'Declarations : Consts Declarations'
     t[0] = t[1] + t[2]
 
 def p_Declarations_vazio(t):
     r'Declarations : '
+    t[0] = []
+
+def p_consts(t):
+    r'Consts : CONST ConstList'
+    t[0] = t[2]
+
+def p_constlist(t):
+    r'ConstList : IDList ":" Type ";" ConstList'
+    pushcode = []
+    for const_name in t[1]:
+        parser.const[const_name] = parser.varstotal
+        parser.consttype[const_name] = t[3]
+        pushcode.append(parser.pushdict[t[3]])
+        parser.varstotal += 1
+    t[0] = t[5] + pushcode
+
+def p_constlist_vazio(t):
+    r'ConstList : '
     t[0] = []
 
 def p_Vars(t):
@@ -84,9 +106,29 @@ def p_Block_ass(t):
     print(parser.var)
     t[0] = t[3] + [f"storeg {parser.var[t[1]]}\n"]
 
+def p_Exp_sum(t):
+    r'Exp : Exp "+" Term'
+    t[0] = t[1] + t[3] + ["add\n"]
+
+def p_Exp_sub(t):
+    r'Exp : Exp "-" Term'
+    t[0] = t[1] + t[3] + ["sub\n"]
+
 def p_Exp_term(t):
     r'Exp : Term'
     t[0] = t[1]
+
+def p_Term_mul(t):
+    r'Term : Term "*" Term'
+    t[0] = t[1] + t[3] + ["mul\n"]
+
+def p_Term_div(t):
+    r'Term : Term "/" Term'
+    t[0] = t[1] + t[3] + ["div\n"]
+
+def p_Term_mod(t):
+    r'Term : Term MOD Term'
+    t[0] = t[1] + t[3] + ["mod\n"]
 
 def p_Term(t):
     r'Term : Factor'
@@ -108,6 +150,16 @@ def p_Factor_string(t):
     r'Factor : STR'
     t[0] = [f'pushs "{t[1]}"\n']
 
+def p_Factor_id(t):
+    r'Factor : ID'
+    if t[1] in parser.var:
+        t[0] = [f'pushg {parser.var[t[1]]}\n']
+    elif t[1] in parser.const:
+        t[0] = [f'pushg {parser.const[t[1]]}\n']
+    else:
+        parser.error(f"'{t[1]}' nao definido")
+        t[0] = []
+
 ex1 = """
 program Hello;
 var
@@ -125,9 +177,10 @@ ex2 ="""
 program ex2;
 var
     a,b,c: string;
-    x: integer;
+    x, y: integer;
 begin
-    x := 5;
+    x := 5 + 5;
+    y := x + 5;
     b := 'ola mundo';
     writeln(b);
 end.
@@ -143,6 +196,8 @@ parser = yacc.yacc()
 parser.pushdict = {'integer':'pushi 0','real':'pushf 0','string':'pushs ""', 'boolean':'pushi 0'}
 parser.varstotal = 0
 parser.var = dict()
+parser.const = dict()
 parser.vartype = dict()
+parser.consttype = dict()
 result = parser.parse(ex2)
 print(result)
