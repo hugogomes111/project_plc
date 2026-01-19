@@ -460,7 +460,14 @@ writeln('Ola, Mundo!');
 end.
 ```
 ### Output
-
+```
+start
+pushs "Ola, Mundo!"
+writes
+pushs "\n"
+writes
+stop
+```
 
 ## 3.2. Fatorial
 ### Input
@@ -478,7 +485,50 @@ writeln('Fatorial de ', n, ': ', fat);
 end.
 ```
 ### Output
+```
+start
+pushn 3
+pushs "Introduza um número inteiro positivo:"
+writes
+pushs "\n"
+writes
+read
+atoi
+storeg 0
+pushi 1
+storeg 2
+pushi 1
+storeg 1
+label0:
+pushg 1
+pushg 0
+pushi 1
+add
+inf
+jz label1
+pushg 2
+pushg 1
+mul
+storeg 2
+pushg 1
+pushi 1
+add
+storeg 1
+jump label0
+label1:
+pushs "Fatorial de "
+writes
+pushg 0
+writei
+pushs ": "
+writes
+pushg 2
+writei
+pushs "\n"
+writes
+stop
 
+```
 
 
 ## 3.3. Verificação de Número Primo
@@ -506,7 +556,64 @@ writeln(num, ' não é um número primo')
 end.
 ```
 ### Output
+```
+start
+pushn 3
+pushs "Introduza um número inteiro positivo:"
+writes
+pushs "\n"
+writes
+read
+atoi
+storeg 1
+pushi 1
+storeg 0
+pushi 2
+storeg 2
+label1:
+pushg 2
+pushg 1
+pushi 2
+div
+infeq
+pushg 0
+mul
+jz label2
+pushg 1
+pushg 2
+mod
+pushi 0
+equal
+jz label0
+pushi 0
+storeg 0
+label0:
+pushg 2
+pushi 1
+add
+storeg 2
+jump label1
+label2:
+pushg 0
+jz label3
+pushg 1
+writei
+pushs " é um número primo"
+writes
+pushs "\n"
+writes
+jump label4
+label3:
+pushg 1
+writei
+pushs " não é um número primo"
+writes
+pushs "\n"
+writes
+label4:
+stop
 
+```
 
 
 ## 3.4. Soma de uma lista de inteiros
@@ -528,7 +635,59 @@ writeln('A soma dos números é: ', soma);
 end.
 ```
 ### Output
-
+```
+start
+pushn 7
+pushi 0
+storeg 1
+pushs "Introduza 5 números inteiros:"
+writes
+pushs "\n"
+writes
+pushi 1
+storeg 0
+label0:
+pushg 0
+pushi 5
+pushi 1
+add
+inf
+jz label1
+pushgp
+pushi 2
+padd
+pushg 0
+pushi 1
+sub
+padd
+read
+atoi
+store 0
+pushg 1
+pushgp
+pushi 2
+padd
+pushg 0
+pushi 1
+sub
+padd
+load 0
+add
+storeg 1
+pushg 0
+pushi 1
+add
+storeg 0
+jump label0
+label1:
+pushs "A soma dos números é: "
+writes
+pushg 1
+writei
+pushs "\n"
+writes
+stop
+```
 
 
 ## 3.5. Conversão binário-decimal
@@ -560,7 +719,71 @@ writeln('O valor inteiro correspondente é: ', valor);
 end.
 ```
 ### Output
-
+```
+pushi 0
+start
+pushn 5
+jump endfuncBinToInt
+funcBinToInt:
+jump bodyfuncBinToInt
+bodyfuncBinToInt:
+pushi 0
+storeg 1
+pushi 1
+storeg 2
+pushl -1
+strlen
+storeg 0
+label1:
+pushg 0
+pushi 1
+supeq
+jz label2
+pushl -1
+pushg 0
+pushi 1
+sub
+charat
+pushi 49
+equal
+jz label0
+pushg 1
+pushg 2
+add
+storeg 1
+label0:
+pushg 2
+pushi 2
+mul
+storeg 2
+pushg 0
+pushi 1
+sub
+storeg 0
+jump label1
+label2:
+pushg 1
+storel 0
+return
+endfuncBinToInt:
+pushs "Introduza uma string binária:"
+writes
+pushs "\n"
+writes
+read
+storeg 4
+pushg 4
+pusha funcBinToInt
+call
+storeg 3
+pushs "O valor inteiro correspondente é: "
+writes
+pushg 3
+writei
+pushs "\n"
+writes
+stop
+```
 
 
 ## Conclusão
