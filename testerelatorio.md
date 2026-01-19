@@ -411,6 +411,42 @@ def p_CondFactor_rel(t):
 ```
 Operadores relacionais suportados: =, <>, <, <=, >, >=. 
 
+## 2.2. Gestão de Escopos e Subprogramas
+
+Para permitir a utilização de funções e procedimentos, o compilador implementa uma gestão de escopos que distingue entre variáveis **globais** e **locais**. Esta distinção é fundamental para garantir a integridade dos dados e permitir a recursividade.
+
+### Memória Global e Local
+A gestão de memória na máquina virtual é feita através de dois registadores principais: o *Global Pointer* (GP) e o *Frame Pointer* (FP). 
+*As variáveis declaradas no bloco principal do programa são consideradas **globais** e acedidas através das instruções `pushg` e `storeg`.
+*As variáveis declaradas dentro de funções, bem como os seus parâmetros, são **locais**. Estas são geridas no *stack frame* da função e acedidas com as instruções `pushl` e `storel`, que utilizam endereços relativos ao `FP`.
+
+
+
+### Implementação do Contexto
+No código Python (`anasinfinal.py`), esta lógica é controlada pelo atributo `parser.current_scope`. 
+1. Quando o parser entra numa função, o escopo muda para o nome da função e o contador de variáveis locais é reiniciado.
+2. Os parâmetros são inseridos na tabela de símbolos como as primeiras posições do novo contexto (`FP+0`, `FP+1`, etc.).
+3. Ao gerar código para um identificador, o compilador verifica primeiro se este existe no escopo local; se não encontrar, procura no escopo global.
+
+**Exemplo de diferenciação no código:**
+
+```pascal
+program ExemploEscopo;
+var g: integer; { Global }
+
+function dobro(n: integer): integer;
+var local: integer; { Local }
+begin
+    local := n * 2;
+    dobro := local;
+end;
+
+begin
+    readln(g);
+    writeln(dobro(g));
+end.
+```
+
 
 
 ## 3. Testes
