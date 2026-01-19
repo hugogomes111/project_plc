@@ -1,0 +1,61 @@
+start
+jump endfuncBinToInt
+funcBinToInt:
+pushi 0
+pushi 0
+pushi 0
+pushi 0
+storeg 2
+pushi 1
+storeg 3
+pushg 0
+strlen
+pushi 1
+add
+storeg 1
+label1:
+pushg 1
+pushi 1
+sup
+jz label2
+pushs "1"
+equal
+jz label0
+pushg 2
+pushg 3
+add
+storeg 2
+label0:
+pushg 3
+pushi 2
+mul
+storeg 3
+pushg 1
+pushi 1
+sub
+storeg 1
+jump label1
+label2:
+pushg 2
+storel 0
+return
+endfuncBinToInt:
+pushi 0
+pushs ""
+pushs "Introduza uma string binária:"
+writes
+pushs "\n"
+writes
+read
+storeg 5
+pushg 5
+pusha funcBinToInt
+call
+storeg 4
+pushs "O valor inteiro correspondente é: "
+writes
+pushg 4
+writei
+pushs "\n"
+writes
+stop

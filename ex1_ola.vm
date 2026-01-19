@@ -1,0 +1,6 @@
+start
+pushs "Hello, world!"
+writes
+pushs "\n"
+writes
+stop

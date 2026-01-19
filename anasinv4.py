@@ -15,7 +15,8 @@ def p_Program(t):
 
 def p_Code(t):
     r'Code : Declarations BEGIN Blocks END'
-    t[0] = t[1] + ["start\n"] + t[3]
+    # O start deve vir ANTES das variáveis globais e do código
+    t[0] = ["start\n"] + t[1] + t[3]
 
 # Declarations
 def p_Declarations_vars(t):
@@ -82,12 +83,9 @@ def p_VarList(t):
     pushcode = []
     for var_name in t[1]:
         var_type = t[3]
-        
         if isinstance(var_type, tuple) and var_type[0] == 'array':
             array_size = var_type[2] - var_type[1] + 1
-            element_type = var_type[3]
             parser.arrays[var_name] = parser.varcount
-            parser.array_bounds[var_name] = (var_type[1], var_type[2])
             parser.var[var_name] = parser.varcount
             parser.vartype[var_name] = var_type
             pushcode.append(f'pushn {array_size}\n')
@@ -98,6 +96,8 @@ def p_VarList(t):
             pushcode.append(parser.pushdict.get(var_type, 'pushi 0\n'))
             parser.varcount += 1
     
+    # IMPORTANTE: t[5] (resto das variáveis) deve vir ANTES do pushcode atual
+    # para que os índices 0, 1, 2 correspondam à ordem no ficheiro .vm
     t[0] = t[5] + pushcode
 
 def p_VarList_vazio(t):
@@ -298,28 +298,28 @@ def p_Block_readln_array(t):
     r'Block : READLN "(" ID "[" Exp "]" ")" ";"'
     if t[3] in parser.arrays:
         array_base = parser.arrays[t[3]]
-        array_info = parser.vartype[t[3]]
-        start_index = array_info[1]
-        var_type = array_info[3]
+        start_index = parser.vartype[t[3]][1]
+        var_type = parser.vartype[t[3]][3]
         
-        read_code = "read\n"
-        if var_type == "integer":
-            read_code += "atoi\n"
-        elif var_type == "real":
-            read_code += "atof\n"
-        
-        # Código para índice dinâmico
-        t[0] = t[5] + [
-            f'pushi {start_index}\n',
-            'sub\n',
-            f'pushi {array_base}\n',
-            'add\n',
-            read_code,
-            'storen\n'
+        # Calcula endereço final (igual ao loadn)
+        addr_code = [
+            "pushgp\n",
+            f"pushi {array_base}\n",
+            "padd\n"
+        ] + t[5] + [
+            f"pushi {start_index}\n",
+            "sub\n",
+            "padd\n"
         ]
-    else:
-        print(f"Erro: array '{t[3]}' não declarado")
-        t[0] = []
+        
+        # Lê valor
+        if var_type == "integer":
+            read_code = ["read\n", "atoi\n"]
+        else:
+            read_code = ["read\n"]
+        
+        # USA STORE 0 em vez de STOREN!
+        t[0] = addr_code + read_code + ["store 0\n"]
 
 def p_Block_ass(t):
     r'Block : ID ASSIGN Exp ";"'
@@ -333,20 +333,19 @@ def p_Block_ass_array(t):
     r'Block : ID "[" Exp "]" ASSIGN Exp ";"'
     if t[1] in parser.arrays:
         array_base = parser.arrays[t[1]]
-        array_info = parser.vartype[t[1]]
-        start_index = array_info[1]
+        start_index = parser.vartype[t[1]][1]
         
-        # Código para índice dinâmico
-        t[0] = t[3] + [
-            f'pushi {start_index}\n',
-            'sub\n',
-            f'pushi {array_base}\n',
-            'add\n'
-        ] + t[6] + ['storen\n']
-    else:
-        print(f"Erro: array '{t[1]}' não declarado")
-        t[0] = []
-
+        addr_code = [
+            "pushgp\n",
+            f"pushi {array_base}\n",
+            "padd\n"
+        ] + t[3] + [
+            f"pushi {start_index}\n",
+            "sub\n",
+            "padd\n"
+        ]
+        
+        t[0] = addr_code + t[6] + ["store 0\n"]
 # CONTROLE DE FLUXO - IF
 def p_Block_if_then(t):
     r'Block : IF Condition THEN Block'
@@ -615,22 +614,19 @@ def p_Factor_array_access(t):
     r'Factor : ID "[" Exp "]"'
     if t[1] in parser.arrays:
         array_base = parser.arrays[t[1]]
-        array_info = parser.vartype[t[1]]
-        start_index = array_info[1]
+        start_index = parser.vartype[t[1]][1]
         
-        t[0] = t[3] + [
-            f'pushi {start_index}\n',
-            'sub\n',
-            f'pushi {array_base}\n',
-            'add\n',
-            'loadn\n'
+        t[0] = [
+            "pushgp\n",
+            f"pushi {array_base}\n",
+            "padd\n"
+        ] + t[3] + [
+            f"pushi {start_index}\n",
+            "sub\n",
+            "padd\n",
+            "load 0\n"
         ]
-    elif t[1] in parser.string_params:
-        # Acesso a caractere de string (parâmetro)
-        var_offset = parser.var[t[1]]
-        t[0] = [f'pushg {var_offset}\n'] + t[3] + ['pushi 1\nsub\n', 'stri\n']
     else:
-        print(f"Erro: array/string '{t[1]}' não declarado")
         t[0] = []
 
 def p_Factor_function_call(t):
@@ -787,60 +783,38 @@ writeln('O valor inteiro correspondente é: ', valor);
 end."""
 
 if __name__ == "__main__":
-    print("=== Teste Exemplo 1 ===")
-    result = parser.parse(ex1)
-    if result:
-        print("".join(result))
+    # Lista de exemplos para gerar
+    testes = [
+        ("ex1_ola.vm", ex1),
+        ("ex2_fatorial.vm", ex2),
+        ("ex3_primo.vm", ex3),
+        ("ex4_array.vm", ex4),
+        ("ex5_func.vm", ex5)
+    ]
+
+    print("--- A GERAR FICHEIROS VM ---")
     
-    print("\n=== Teste Exemplo 2 ===")
-    parser.var = {}
-    parser.arrays = {}
-    parser.array_bounds = {}
-    parser.vartype = {}
-    parser.constants = {}
-    parser.string_params = set()
-    parser.varcount = 0
-    parser.labelcount = 0
-    result = parser.parse(ex2)
-    if result:
-        print("".join(result))
-    
-    print("\n=== Teste Exemplo 3 (While complexo) ===")
-    parser.var = {}
-    parser.arrays = {}
-    parser.array_bounds = {}
-    parser.vartype = {}
-    parser.constants = {}
-    parser.string_params = set()
-    parser.varcount = 0
-    parser.labelcount = 0
-    result = parser.parse(ex3)
-    if result:
-        print("".join(result))
-    
-    print("\n=== Teste Exemplo 4 (Arrays) ===")
-    parser.var = {}
-    parser.arrays = {}
-    parser.array_bounds = {}
-    parser.vartype = {}
-    parser.constants = {}
-    parser.string_params = set()
-    parser.varcount = 0
-    parser.labelcount = 0
-    result = parser.parse(ex4)
-    if result:
-        print("".join(result))
-    
-    print("\n=== Teste Exemplo 5 (Função com Strings) ===")
-    parser.var = {}
-    parser.arrays = {}
-    parser.array_bounds = {}
-    parser.vartype = {}
-    parser.constants = {}
-    parser.functions = {}
-    parser.string_params = set()
-    parser.varcount = 0
-    parser.labelcount = 0
-    result = parser.parse(ex5)
-    if result:
-        print("".join(result))
+    for nome_ficheiro, codigo_pascal in testes:
+        # 1. Limpar a memória do compilador antes de cada teste
+        parser.var = {}
+        parser.arrays = {}
+        parser.array_bounds = {}
+        parser.vartype = {}
+        parser.constants = {}
+        parser.functions = {}
+        parser.string_params = set()
+        parser.varcount = 0
+        parser.labelcount = 0
+        
+        # 2. Compilar
+        try:
+            result = parser.parse(codigo_pascal)
+            if result:
+                # 3. Gravar num ficheiro
+                with open(nome_ficheiro, 'w') as f:
+                    f.write("".join(result))
+                print(f"✅ {nome_ficheiro} criado com sucesso.")
+            else:
+                print(f"❌ Erro ao compilar {nome_ficheiro}")
+        except Exception as e:
+            print(f"❌ Erro crítico em {nome_ficheiro}: {e}")
