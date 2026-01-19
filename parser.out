@@ -9,7 +9,6 @@ Unused terminals:
     GOTO
     IN
     LABEL
-    LENGTH
     NIL
     PACKED
     READ
@@ -91,49 +90,51 @@ Rule 67    CondFactor -> Exp RelOp Exp
 Rule 68    CondFactor -> ( Condition )
 Rule 69    CondFactor -> TRUE
 Rule 70    CondFactor -> FALSE
-Rule 71    RelOp -> =
-Rule 72    RelOp -> NE
-Rule 73    RelOp -> <
-Rule 74    RelOp -> LE
-Rule 75    RelOp -> >
-Rule 76    RelOp -> GE
-Rule 77    Exp -> Exp + Term
-Rule 78    Exp -> Exp - Term
-Rule 79    Exp -> Term
-Rule 80    Term -> Term * Factor
-Rule 81    Term -> Term / Factor
-Rule 82    Term -> Term DIV Factor
-Rule 83    Term -> Term MOD Factor
-Rule 84    Term -> Factor
-Rule 85    Factor -> INT
-Rule 86    Factor -> REAL
-Rule 87    Factor -> STR
-Rule 88    Factor -> TRUE
-Rule 89    Factor -> FALSE
-Rule 90    Factor -> ID
-Rule 91    Factor -> ID [ Exp ]
-Rule 92    Factor -> ID ( ArgumentList )
-Rule 93    Factor -> ( Exp )
-Rule 94    ArgumentList -> Exp MoreArguments
-Rule 95    ArgumentList -> <empty>
-Rule 96    MoreArguments -> , Exp MoreArguments
-Rule 97    MoreArguments -> <empty>
+Rule 71    CondFactor -> ID
+Rule 72    RelOp -> =
+Rule 73    RelOp -> NE
+Rule 74    RelOp -> <
+Rule 75    RelOp -> LE
+Rule 76    RelOp -> >
+Rule 77    RelOp -> GE
+Rule 78    Exp -> Exp + Term
+Rule 79    Exp -> Exp - Term
+Rule 80    Exp -> Term
+Rule 81    Term -> Term * Factor
+Rule 82    Term -> Term / Factor
+Rule 83    Term -> Term DIV Factor
+Rule 84    Term -> Term MOD Factor
+Rule 85    Term -> Factor
+Rule 86    Factor -> INT
+Rule 87    Factor -> REAL
+Rule 88    Factor -> STR
+Rule 89    Factor -> TRUE
+Rule 90    Factor -> FALSE
+Rule 91    Factor -> ID
+Rule 92    Factor -> ID [ Exp ]
+Rule 93    Factor -> ID ( ArgumentList )
+Rule 94    Factor -> LENGTH ( ArgumentList )
+Rule 95    Factor -> ( Exp )
+Rule 96    ArgumentList -> Exp MoreArguments
+Rule 97    ArgumentList -> <empty>
+Rule 98    MoreArguments -> , Exp MoreArguments
+Rule 99    MoreArguments -> <empty>
 
 Terminals, with rules where they appear
 
-(                    : 28 31 40 41 47 48 68 92 93
-)                    : 28 31 40 41 47 48 68 92 93
-*                    : 80
-+                    : 77
-,                    : 20 43 96
--                    : 78
+(                    : 28 31 40 41 47 48 68 93 94 95
+)                    : 28 31 40 41 47 48 68 93 94 95
+*                    : 81
++                    : 78
+,                    : 20 43 98
+-                    : 79
 .                    : 1
-/                    : 81
+/                    : 82
 :                    : 17 28 29 34 36
 ;                    : 1 9 17 28 29 30 31 32 33 36 40 41 47 48 49 50 53 54 56 58 60 61
-<                    : 73
-=                    : 9 71
->                    : 75
+<                    : 74
+=                    : 9 72
+>                    : 76
 AND                  : 64
 ARRAY                : 27
 ASSIGN               : 49 50 57 58 59 60
@@ -143,29 +144,29 @@ CASE                 :
 CHAR                 : 26
 COMMENT              : 
 CONST                : 8
-DIV                  : 82
+DIV                  : 83
 DO                   : 55 56 57 58 59 60
 DOTDOT               : 27
 DOWNTO               : 59 60
 ELSE                 : 52 54
 END                  : 2 30 33 53 54 54 56 58 60
-FALSE                : 15 70 89
+FALSE                : 15 70 90
 FILE                 : 
 FOR                  : 57 58 59 60
 FORWARD              : 
 FUNCTION             : 28 29
-GE                   : 76
+GE                   : 77
 GOTO                 : 
-ID                   : 1 9 19 20 28 29 31 32 47 48 49 50 57 58 59 60 90 91 92
+ID                   : 1 9 19 20 28 29 31 32 47 48 49 50 57 58 59 60 71 91 92 93
 IF                   : 51 52 53 54
 IN                   : 
-INT                  : 11 27 27 85
+INT                  : 11 27 27 86
 INTEGER              : 22
 LABEL                : 
-LE                   : 74
-LENGTH               : 
-MOD                  : 83
-NE                   : 72
+LE                   : 75
+LENGTH               : 94
+MOD                  : 84
+NE                   : 73
 NIL                  : 
 NOT                  : 66
 OF                   : 27
@@ -175,16 +176,16 @@ PROCEDURE            : 31 32
 PROGRAM              : 1
 READ                 : 
 READLN               : 47 48
-REAL                 : 12 86
+REAL                 : 12 87
 REALTYPE             : 25
 RECORD               : 
 REPEAT               : 61
 SET                  : 
-STR                  : 13 45 87
+STR                  : 13 45 88
 STRING               : 24
 THEN                 : 51 52 53 54
 TO                   : 57 58
-TRUE                 : 14 69 88
+TRUE                 : 14 69 89
 TYPE                 : 
 UNTIL                : 61
 VAR                  : 16
@@ -192,13 +193,13 @@ WHILE                : 55 56
 WITH                 : 
 WRITE                : 41
 WRITELN              : 40
-[                    : 27 48 50 91
-]                    : 27 48 50 91
+[                    : 27 48 50 92
+]                    : 27 48 50 92
 error                : 
 
 Nonterminals, with rules where they appear
 
-ArgumentList         : 92
+ArgumentList         : 93 94
 Block                : 38 51 52 52 55 57 59
 Blocks               : 2 30 33 38 53 54 54 56 58 60 61
 Code                 : 1
@@ -209,12 +210,12 @@ ConstDefs            : 8 9
 ConstValue           : 9
 Consts               : 4
 Declarations         : 2 3 4 5 6 30 33
-Exp                  : 46 48 49 50 50 57 57 58 58 59 59 60 60 67 67 77 78 91 93 94 96
-Factor               : 80 81 82 83 84
+Exp                  : 46 48 49 50 50 57 57 58 58 59 59 60 60 67 67 78 79 92 95 96 98
+Factor               : 81 82 83 84 85
 FunctionBody         : 28 29
 Functions            : 5
 IDList               : 17 34 36
-MoreArguments        : 94 96
+MoreArguments        : 96 98
 MoreParameters       : 34 36
 MoreWriteItems       : 42 43
 Parameters           : 28 31
@@ -223,7 +224,7 @@ Procedures           : 6
 Program              : 0
 RelOp                : 67
 RestoIDs             : 19 20
-Term                 : 77 78 79 80 81 82 83
+Term                 : 78 79 80 81 82 83 84
 Type                 : 17 27 28 29 34 36
 VarList              : 16 17
 Vars                 : 3
@@ -686,39 +687,42 @@ state 34
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
     Condition                      shift and go to state 53
     CondTerm                       shift and go to state 54
     CondFactor                     shift and go to state 55
     Exp                            shift and go to state 57
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 35
 
@@ -733,39 +737,42 @@ state 35
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
-    Condition                      shift and go to state 67
+    Condition                      shift and go to state 68
     CondTerm                       shift and go to state 54
     CondFactor                     shift and go to state 55
     Exp                            shift and go to state 57
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 36
 
@@ -774,7 +781,7 @@ state 36
     (59) Block -> FOR . ID ASSIGN Exp DOWNTO Exp DO Block
     (60) Block -> FOR . ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ;
 
-    ID              shift and go to state 68
+    ID              shift and go to state 69
 
 
 state 37
@@ -810,7 +817,7 @@ state 37
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 69
+    Blocks                         shift and go to state 70
     Block                          shift and go to state 29
 
 state 38
@@ -823,14 +830,14 @@ state 38
     (26) Type -> . CHAR
     (27) Type -> . ARRAY [ INT DOTDOT INT ] OF Type
 
-    INTEGER         shift and go to state 71
-    BOOLEAN         shift and go to state 72
-    STRING          shift and go to state 73
-    REALTYPE        shift and go to state 74
-    CHAR            shift and go to state 75
-    ARRAY           shift and go to state 76
+    INTEGER         shift and go to state 72
+    BOOLEAN         shift and go to state 73
+    STRING          shift and go to state 74
+    REALTYPE        shift and go to state 75
+    CHAR            shift and go to state 76
+    ARRAY           shift and go to state 77
 
-    Type                           shift and go to state 70
+    Type                           shift and go to state 71
 
 state 39
 
@@ -843,7 +850,7 @@ state 40
 
     (20) RestoIDs -> , . ID RestoIDs
 
-    ID              shift and go to state 77
+    ID              shift and go to state 78
 
 
 state 41
@@ -855,13 +862,13 @@ state 41
     (14) ConstValue -> . TRUE
     (15) ConstValue -> . FALSE
 
-    INT             shift and go to state 79
-    REAL            shift and go to state 80
-    STR             shift and go to state 81
-    TRUE            shift and go to state 82
-    FALSE           shift and go to state 83
+    INT             shift and go to state 80
+    REAL            shift and go to state 81
+    STR             shift and go to state 82
+    TRUE            shift and go to state 83
+    FALSE           shift and go to state 84
 
-    ConstValue                     shift and go to state 78
+    ConstValue                     shift and go to state 79
 
 state 42
 
@@ -873,8 +880,8 @@ state 42
     )               reduce using rule 35 (Parameters -> .)
     ID              shift and go to state 23
 
-    Parameters                     shift and go to state 84
-    IDList                         shift and go to state 85
+    Parameters                     shift and go to state 85
+    IDList                         shift and go to state 86
 
 state 43
 
@@ -886,14 +893,14 @@ state 43
     (26) Type -> . CHAR
     (27) Type -> . ARRAY [ INT DOTDOT INT ] OF Type
 
-    INTEGER         shift and go to state 71
-    BOOLEAN         shift and go to state 72
-    STRING          shift and go to state 73
-    REALTYPE        shift and go to state 74
-    CHAR            shift and go to state 75
-    ARRAY           shift and go to state 76
+    INTEGER         shift and go to state 72
+    BOOLEAN         shift and go to state 73
+    STRING          shift and go to state 74
+    REALTYPE        shift and go to state 75
+    CHAR            shift and go to state 76
+    ARRAY           shift and go to state 77
 
-    Type                           shift and go to state 86
+    Type                           shift and go to state 87
 
 state 44
 
@@ -905,8 +912,8 @@ state 44
     )               reduce using rule 35 (Parameters -> .)
     ID              shift and go to state 23
 
-    Parameters                     shift and go to state 87
-    IDList                         shift and go to state 85
+    Parameters                     shift and go to state 88
+    IDList                         shift and go to state 86
 
 state 45
 
@@ -930,8 +937,8 @@ state 45
     FUNCTION        shift and go to state 13
     PROCEDURE       shift and go to state 14
 
-    ProcedureBody                  shift and go to state 88
-    Declarations                   shift and go to state 89
+    ProcedureBody                  shift and go to state 89
+    Declarations                   shift and go to state 90
     Vars                           shift and go to state 7
     Consts                         shift and go to state 8
     Functions                      shift and go to state 9
@@ -958,37 +965,39 @@ state 48
     (42) WriteList -> . WriteItem MoreWriteItems
     (45) WriteItem -> . STR
     (46) WriteItem -> . Exp
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    STR             shift and go to state 93
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    STR             shift and go to state 94
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    WriteList                      shift and go to state 91
-    WriteItem                      shift and go to state 92
-    Exp                            shift and go to state 94
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    WriteList                      shift and go to state 92
+    WriteItem                      shift and go to state 93
+    Exp                            shift and go to state 95
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 49
 
@@ -996,111 +1005,117 @@ state 49
     (42) WriteList -> . WriteItem MoreWriteItems
     (45) WriteItem -> . STR
     (46) WriteItem -> . Exp
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    STR             shift and go to state 93
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    STR             shift and go to state 94
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    WriteList                      shift and go to state 97
-    WriteItem                      shift and go to state 92
-    Exp                            shift and go to state 94
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    WriteList                      shift and go to state 99
+    WriteItem                      shift and go to state 93
+    Exp                            shift and go to state 95
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 50
 
     (47) Block -> READLN ( . ID ) ;
     (48) Block -> READLN ( . ID [ Exp ] ) ;
 
-    ID              shift and go to state 98
+    ID              shift and go to state 100
 
 
 state 51
 
     (49) Block -> ID ASSIGN . Exp ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Exp                            shift and go to state 99
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Exp                            shift and go to state 101
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 52
 
     (50) Block -> ID [ . Exp ] ASSIGN Exp ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Exp                            shift and go to state 100
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Exp                            shift and go to state 102
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 53
 
@@ -1110,8 +1125,8 @@ state 53
     (54) Block -> IF Condition . THEN BEGIN Blocks END ELSE BEGIN Blocks END ;
     (62) Condition -> Condition . OR CondTerm
 
-    THEN            shift and go to state 101
-    OR              shift and go to state 102
+    THEN            shift and go to state 103
+    OR              shift and go to state 104
 
 
 state 54
@@ -1124,7 +1139,7 @@ state 54
     DO              reduce using rule 63 (Condition -> CondTerm .)
     )               reduce using rule 63 (Condition -> CondTerm .)
     ;               reduce using rule 63 (Condition -> CondTerm .)
-    AND             shift and go to state 103
+    AND             shift and go to state 105
 
 
 state 55
@@ -1147,112 +1162,118 @@ state 56
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
-    CondFactor                     shift and go to state 104
+    CondFactor                     shift and go to state 106
     Exp                            shift and go to state 57
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 57
 
     (67) CondFactor -> Exp . RelOp Exp
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-    (71) RelOp -> . =
-    (72) RelOp -> . NE
-    (73) RelOp -> . <
-    (74) RelOp -> . LE
-    (75) RelOp -> . >
-    (76) RelOp -> . GE
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+    (72) RelOp -> . =
+    (73) RelOp -> . NE
+    (74) RelOp -> . <
+    (75) RelOp -> . LE
+    (76) RelOp -> . >
+    (77) RelOp -> . GE
 
-    +               shift and go to state 106
-    -               shift and go to state 107
-    =               shift and go to state 108
-    NE              shift and go to state 109
-    <               shift and go to state 110
-    LE              shift and go to state 111
-    >               shift and go to state 112
-    GE              shift and go to state 113
+    +               shift and go to state 108
+    -               shift and go to state 109
+    =               shift and go to state 110
+    NE              shift and go to state 111
+    <               shift and go to state 112
+    LE              shift and go to state 113
+    >               shift and go to state 114
+    GE              shift and go to state 115
 
-    RelOp                          shift and go to state 105
+    RelOp                          shift and go to state 107
 
 state 58
 
     (68) CondFactor -> ( . Condition )
-    (93) Factor -> ( . Exp )
+    (95) Factor -> ( . Exp )
     (62) Condition -> . Condition OR CondTerm
     (63) Condition -> . CondTerm
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
     (64) CondTerm -> . CondTerm AND CondFactor
     (65) CondTerm -> . CondFactor
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
     (66) CondFactor -> . NOT CondFactor
     (67) CondFactor -> . Exp RelOp Exp
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
-    Condition                      shift and go to state 114
-    Exp                            shift and go to state 115
+    Condition                      shift and go to state 116
+    Exp                            shift and go to state 117
     CondTerm                       shift and go to state 54
-    Term                           shift and go to state 61
+    Term                           shift and go to state 62
     CondFactor                     shift and go to state 55
-    Factor                         shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 59
 
     (69) CondFactor -> TRUE .
-    (88) Factor -> TRUE .
+    (89) Factor -> TRUE .
 
   ! reduce/reduce conflict for ) resolved using rule 69 (CondFactor -> TRUE .)
     AND             reduce using rule 69 (CondFactor -> TRUE .)
@@ -1261,26 +1282,26 @@ state 59
     DO              reduce using rule 69 (CondFactor -> TRUE .)
     )               reduce using rule 69 (CondFactor -> TRUE .)
     ;               reduce using rule 69 (CondFactor -> TRUE .)
-    *               reduce using rule 88 (Factor -> TRUE .)
-    /               reduce using rule 88 (Factor -> TRUE .)
-    DIV             reduce using rule 88 (Factor -> TRUE .)
-    MOD             reduce using rule 88 (Factor -> TRUE .)
-    +               reduce using rule 88 (Factor -> TRUE .)
-    -               reduce using rule 88 (Factor -> TRUE .)
-    =               reduce using rule 88 (Factor -> TRUE .)
-    NE              reduce using rule 88 (Factor -> TRUE .)
-    <               reduce using rule 88 (Factor -> TRUE .)
-    LE              reduce using rule 88 (Factor -> TRUE .)
-    >               reduce using rule 88 (Factor -> TRUE .)
-    GE              reduce using rule 88 (Factor -> TRUE .)
+    *               reduce using rule 89 (Factor -> TRUE .)
+    /               reduce using rule 89 (Factor -> TRUE .)
+    DIV             reduce using rule 89 (Factor -> TRUE .)
+    MOD             reduce using rule 89 (Factor -> TRUE .)
+    +               reduce using rule 89 (Factor -> TRUE .)
+    -               reduce using rule 89 (Factor -> TRUE .)
+    =               reduce using rule 89 (Factor -> TRUE .)
+    NE              reduce using rule 89 (Factor -> TRUE .)
+    <               reduce using rule 89 (Factor -> TRUE .)
+    LE              reduce using rule 89 (Factor -> TRUE .)
+    >               reduce using rule 89 (Factor -> TRUE .)
+    GE              reduce using rule 89 (Factor -> TRUE .)
 
-  ! )               [ reduce using rule 88 (Factor -> TRUE .) ]
+  ! )               [ reduce using rule 89 (Factor -> TRUE .) ]
 
 
 state 60
 
     (70) CondFactor -> FALSE .
-    (89) Factor -> FALSE .
+    (90) Factor -> FALSE .
 
   ! reduce/reduce conflict for ) resolved using rule 70 (CondFactor -> FALSE .)
     AND             reduce using rule 70 (CondFactor -> FALSE .)
@@ -1289,233 +1310,240 @@ state 60
     DO              reduce using rule 70 (CondFactor -> FALSE .)
     )               reduce using rule 70 (CondFactor -> FALSE .)
     ;               reduce using rule 70 (CondFactor -> FALSE .)
-    *               reduce using rule 89 (Factor -> FALSE .)
-    /               reduce using rule 89 (Factor -> FALSE .)
-    DIV             reduce using rule 89 (Factor -> FALSE .)
-    MOD             reduce using rule 89 (Factor -> FALSE .)
-    +               reduce using rule 89 (Factor -> FALSE .)
-    -               reduce using rule 89 (Factor -> FALSE .)
-    =               reduce using rule 89 (Factor -> FALSE .)
-    NE              reduce using rule 89 (Factor -> FALSE .)
-    <               reduce using rule 89 (Factor -> FALSE .)
-    LE              reduce using rule 89 (Factor -> FALSE .)
-    >               reduce using rule 89 (Factor -> FALSE .)
-    GE              reduce using rule 89 (Factor -> FALSE .)
+    *               reduce using rule 90 (Factor -> FALSE .)
+    /               reduce using rule 90 (Factor -> FALSE .)
+    DIV             reduce using rule 90 (Factor -> FALSE .)
+    MOD             reduce using rule 90 (Factor -> FALSE .)
+    +               reduce using rule 90 (Factor -> FALSE .)
+    -               reduce using rule 90 (Factor -> FALSE .)
+    =               reduce using rule 90 (Factor -> FALSE .)
+    NE              reduce using rule 90 (Factor -> FALSE .)
+    <               reduce using rule 90 (Factor -> FALSE .)
+    LE              reduce using rule 90 (Factor -> FALSE .)
+    >               reduce using rule 90 (Factor -> FALSE .)
+    GE              reduce using rule 90 (Factor -> FALSE .)
 
-  ! )               [ reduce using rule 89 (Factor -> FALSE .) ]
+  ! )               [ reduce using rule 90 (Factor -> FALSE .) ]
 
 
 state 61
 
-    (79) Exp -> Term .
-    (80) Term -> Term . * Factor
-    (81) Term -> Term . / Factor
-    (82) Term -> Term . DIV Factor
-    (83) Term -> Term . MOD Factor
+    (71) CondFactor -> ID .
+    (91) Factor -> ID .
+    (92) Factor -> ID . [ Exp ]
+    (93) Factor -> ID . ( ArgumentList )
 
-    +               reduce using rule 79 (Exp -> Term .)
-    -               reduce using rule 79 (Exp -> Term .)
-    =               reduce using rule 79 (Exp -> Term .)
-    NE              reduce using rule 79 (Exp -> Term .)
-    <               reduce using rule 79 (Exp -> Term .)
-    LE              reduce using rule 79 (Exp -> Term .)
-    >               reduce using rule 79 (Exp -> Term .)
-    GE              reduce using rule 79 (Exp -> Term .)
-    ,               reduce using rule 79 (Exp -> Term .)
-    )               reduce using rule 79 (Exp -> Term .)
-    ;               reduce using rule 79 (Exp -> Term .)
-    ]               reduce using rule 79 (Exp -> Term .)
-    AND             reduce using rule 79 (Exp -> Term .)
-    THEN            reduce using rule 79 (Exp -> Term .)
-    OR              reduce using rule 79 (Exp -> Term .)
-    DO              reduce using rule 79 (Exp -> Term .)
-    TO              reduce using rule 79 (Exp -> Term .)
-    DOWNTO          reduce using rule 79 (Exp -> Term .)
-    *               shift and go to state 116
-    /               shift and go to state 117
-    DIV             shift and go to state 118
-    MOD             shift and go to state 119
+  ! reduce/reduce conflict for ) resolved using rule 71 (CondFactor -> ID .)
+    AND             reduce using rule 71 (CondFactor -> ID .)
+    THEN            reduce using rule 71 (CondFactor -> ID .)
+    OR              reduce using rule 71 (CondFactor -> ID .)
+    DO              reduce using rule 71 (CondFactor -> ID .)
+    )               reduce using rule 71 (CondFactor -> ID .)
+    ;               reduce using rule 71 (CondFactor -> ID .)
+    *               reduce using rule 91 (Factor -> ID .)
+    /               reduce using rule 91 (Factor -> ID .)
+    DIV             reduce using rule 91 (Factor -> ID .)
+    MOD             reduce using rule 91 (Factor -> ID .)
+    +               reduce using rule 91 (Factor -> ID .)
+    -               reduce using rule 91 (Factor -> ID .)
+    =               reduce using rule 91 (Factor -> ID .)
+    NE              reduce using rule 91 (Factor -> ID .)
+    <               reduce using rule 91 (Factor -> ID .)
+    LE              reduce using rule 91 (Factor -> ID .)
+    >               reduce using rule 91 (Factor -> ID .)
+    GE              reduce using rule 91 (Factor -> ID .)
+    [               shift and go to state 118
+    (               shift and go to state 119
+
+  ! )               [ reduce using rule 91 (Factor -> ID .) ]
 
 
 state 62
 
-    (84) Term -> Factor .
+    (80) Exp -> Term .
+    (81) Term -> Term . * Factor
+    (82) Term -> Term . / Factor
+    (83) Term -> Term . DIV Factor
+    (84) Term -> Term . MOD Factor
 
-    *               reduce using rule 84 (Term -> Factor .)
-    /               reduce using rule 84 (Term -> Factor .)
-    DIV             reduce using rule 84 (Term -> Factor .)
-    MOD             reduce using rule 84 (Term -> Factor .)
-    +               reduce using rule 84 (Term -> Factor .)
-    -               reduce using rule 84 (Term -> Factor .)
-    =               reduce using rule 84 (Term -> Factor .)
-    NE              reduce using rule 84 (Term -> Factor .)
-    <               reduce using rule 84 (Term -> Factor .)
-    LE              reduce using rule 84 (Term -> Factor .)
-    >               reduce using rule 84 (Term -> Factor .)
-    GE              reduce using rule 84 (Term -> Factor .)
-    ,               reduce using rule 84 (Term -> Factor .)
-    )               reduce using rule 84 (Term -> Factor .)
-    ;               reduce using rule 84 (Term -> Factor .)
-    ]               reduce using rule 84 (Term -> Factor .)
-    AND             reduce using rule 84 (Term -> Factor .)
-    THEN            reduce using rule 84 (Term -> Factor .)
-    OR              reduce using rule 84 (Term -> Factor .)
-    DO              reduce using rule 84 (Term -> Factor .)
-    TO              reduce using rule 84 (Term -> Factor .)
-    DOWNTO          reduce using rule 84 (Term -> Factor .)
+    +               reduce using rule 80 (Exp -> Term .)
+    -               reduce using rule 80 (Exp -> Term .)
+    =               reduce using rule 80 (Exp -> Term .)
+    NE              reduce using rule 80 (Exp -> Term .)
+    <               reduce using rule 80 (Exp -> Term .)
+    LE              reduce using rule 80 (Exp -> Term .)
+    >               reduce using rule 80 (Exp -> Term .)
+    GE              reduce using rule 80 (Exp -> Term .)
+    ,               reduce using rule 80 (Exp -> Term .)
+    )               reduce using rule 80 (Exp -> Term .)
+    ;               reduce using rule 80 (Exp -> Term .)
+    ]               reduce using rule 80 (Exp -> Term .)
+    AND             reduce using rule 80 (Exp -> Term .)
+    THEN            reduce using rule 80 (Exp -> Term .)
+    OR              reduce using rule 80 (Exp -> Term .)
+    DO              reduce using rule 80 (Exp -> Term .)
+    TO              reduce using rule 80 (Exp -> Term .)
+    DOWNTO          reduce using rule 80 (Exp -> Term .)
+    *               shift and go to state 120
+    /               shift and go to state 121
+    DIV             shift and go to state 122
+    MOD             shift and go to state 123
 
 
 state 63
 
-    (85) Factor -> INT .
+    (85) Term -> Factor .
 
-    *               reduce using rule 85 (Factor -> INT .)
-    /               reduce using rule 85 (Factor -> INT .)
-    DIV             reduce using rule 85 (Factor -> INT .)
-    MOD             reduce using rule 85 (Factor -> INT .)
-    +               reduce using rule 85 (Factor -> INT .)
-    -               reduce using rule 85 (Factor -> INT .)
-    =               reduce using rule 85 (Factor -> INT .)
-    NE              reduce using rule 85 (Factor -> INT .)
-    <               reduce using rule 85 (Factor -> INT .)
-    LE              reduce using rule 85 (Factor -> INT .)
-    >               reduce using rule 85 (Factor -> INT .)
-    GE              reduce using rule 85 (Factor -> INT .)
-    ,               reduce using rule 85 (Factor -> INT .)
-    )               reduce using rule 85 (Factor -> INT .)
-    ;               reduce using rule 85 (Factor -> INT .)
-    ]               reduce using rule 85 (Factor -> INT .)
-    AND             reduce using rule 85 (Factor -> INT .)
-    THEN            reduce using rule 85 (Factor -> INT .)
-    OR              reduce using rule 85 (Factor -> INT .)
-    DO              reduce using rule 85 (Factor -> INT .)
-    TO              reduce using rule 85 (Factor -> INT .)
-    DOWNTO          reduce using rule 85 (Factor -> INT .)
+    *               reduce using rule 85 (Term -> Factor .)
+    /               reduce using rule 85 (Term -> Factor .)
+    DIV             reduce using rule 85 (Term -> Factor .)
+    MOD             reduce using rule 85 (Term -> Factor .)
+    +               reduce using rule 85 (Term -> Factor .)
+    -               reduce using rule 85 (Term -> Factor .)
+    =               reduce using rule 85 (Term -> Factor .)
+    NE              reduce using rule 85 (Term -> Factor .)
+    <               reduce using rule 85 (Term -> Factor .)
+    LE              reduce using rule 85 (Term -> Factor .)
+    >               reduce using rule 85 (Term -> Factor .)
+    GE              reduce using rule 85 (Term -> Factor .)
+    ,               reduce using rule 85 (Term -> Factor .)
+    )               reduce using rule 85 (Term -> Factor .)
+    ;               reduce using rule 85 (Term -> Factor .)
+    ]               reduce using rule 85 (Term -> Factor .)
+    AND             reduce using rule 85 (Term -> Factor .)
+    THEN            reduce using rule 85 (Term -> Factor .)
+    OR              reduce using rule 85 (Term -> Factor .)
+    DO              reduce using rule 85 (Term -> Factor .)
+    TO              reduce using rule 85 (Term -> Factor .)
+    DOWNTO          reduce using rule 85 (Term -> Factor .)
 
 
 state 64
 
-    (86) Factor -> REAL .
+    (86) Factor -> INT .
 
-    *               reduce using rule 86 (Factor -> REAL .)
-    /               reduce using rule 86 (Factor -> REAL .)
-    DIV             reduce using rule 86 (Factor -> REAL .)
-    MOD             reduce using rule 86 (Factor -> REAL .)
-    +               reduce using rule 86 (Factor -> REAL .)
-    -               reduce using rule 86 (Factor -> REAL .)
-    =               reduce using rule 86 (Factor -> REAL .)
-    NE              reduce using rule 86 (Factor -> REAL .)
-    <               reduce using rule 86 (Factor -> REAL .)
-    LE              reduce using rule 86 (Factor -> REAL .)
-    >               reduce using rule 86 (Factor -> REAL .)
-    GE              reduce using rule 86 (Factor -> REAL .)
-    ,               reduce using rule 86 (Factor -> REAL .)
-    )               reduce using rule 86 (Factor -> REAL .)
-    ;               reduce using rule 86 (Factor -> REAL .)
-    ]               reduce using rule 86 (Factor -> REAL .)
-    AND             reduce using rule 86 (Factor -> REAL .)
-    THEN            reduce using rule 86 (Factor -> REAL .)
-    OR              reduce using rule 86 (Factor -> REAL .)
-    DO              reduce using rule 86 (Factor -> REAL .)
-    TO              reduce using rule 86 (Factor -> REAL .)
-    DOWNTO          reduce using rule 86 (Factor -> REAL .)
+    *               reduce using rule 86 (Factor -> INT .)
+    /               reduce using rule 86 (Factor -> INT .)
+    DIV             reduce using rule 86 (Factor -> INT .)
+    MOD             reduce using rule 86 (Factor -> INT .)
+    +               reduce using rule 86 (Factor -> INT .)
+    -               reduce using rule 86 (Factor -> INT .)
+    =               reduce using rule 86 (Factor -> INT .)
+    NE              reduce using rule 86 (Factor -> INT .)
+    <               reduce using rule 86 (Factor -> INT .)
+    LE              reduce using rule 86 (Factor -> INT .)
+    >               reduce using rule 86 (Factor -> INT .)
+    GE              reduce using rule 86 (Factor -> INT .)
+    ,               reduce using rule 86 (Factor -> INT .)
+    )               reduce using rule 86 (Factor -> INT .)
+    ;               reduce using rule 86 (Factor -> INT .)
+    ]               reduce using rule 86 (Factor -> INT .)
+    AND             reduce using rule 86 (Factor -> INT .)
+    THEN            reduce using rule 86 (Factor -> INT .)
+    OR              reduce using rule 86 (Factor -> INT .)
+    DO              reduce using rule 86 (Factor -> INT .)
+    TO              reduce using rule 86 (Factor -> INT .)
+    DOWNTO          reduce using rule 86 (Factor -> INT .)
 
 
 state 65
 
-    (87) Factor -> STR .
+    (87) Factor -> REAL .
 
-    *               reduce using rule 87 (Factor -> STR .)
-    /               reduce using rule 87 (Factor -> STR .)
-    DIV             reduce using rule 87 (Factor -> STR .)
-    MOD             reduce using rule 87 (Factor -> STR .)
-    +               reduce using rule 87 (Factor -> STR .)
-    -               reduce using rule 87 (Factor -> STR .)
-    =               reduce using rule 87 (Factor -> STR .)
-    NE              reduce using rule 87 (Factor -> STR .)
-    <               reduce using rule 87 (Factor -> STR .)
-    LE              reduce using rule 87 (Factor -> STR .)
-    >               reduce using rule 87 (Factor -> STR .)
-    GE              reduce using rule 87 (Factor -> STR .)
-    ;               reduce using rule 87 (Factor -> STR .)
-    ]               reduce using rule 87 (Factor -> STR .)
-    )               reduce using rule 87 (Factor -> STR .)
-    AND             reduce using rule 87 (Factor -> STR .)
-    THEN            reduce using rule 87 (Factor -> STR .)
-    OR              reduce using rule 87 (Factor -> STR .)
-    DO              reduce using rule 87 (Factor -> STR .)
-    ,               reduce using rule 87 (Factor -> STR .)
-    TO              reduce using rule 87 (Factor -> STR .)
-    DOWNTO          reduce using rule 87 (Factor -> STR .)
+    *               reduce using rule 87 (Factor -> REAL .)
+    /               reduce using rule 87 (Factor -> REAL .)
+    DIV             reduce using rule 87 (Factor -> REAL .)
+    MOD             reduce using rule 87 (Factor -> REAL .)
+    +               reduce using rule 87 (Factor -> REAL .)
+    -               reduce using rule 87 (Factor -> REAL .)
+    =               reduce using rule 87 (Factor -> REAL .)
+    NE              reduce using rule 87 (Factor -> REAL .)
+    <               reduce using rule 87 (Factor -> REAL .)
+    LE              reduce using rule 87 (Factor -> REAL .)
+    >               reduce using rule 87 (Factor -> REAL .)
+    GE              reduce using rule 87 (Factor -> REAL .)
+    ,               reduce using rule 87 (Factor -> REAL .)
+    )               reduce using rule 87 (Factor -> REAL .)
+    ;               reduce using rule 87 (Factor -> REAL .)
+    ]               reduce using rule 87 (Factor -> REAL .)
+    AND             reduce using rule 87 (Factor -> REAL .)
+    THEN            reduce using rule 87 (Factor -> REAL .)
+    OR              reduce using rule 87 (Factor -> REAL .)
+    DO              reduce using rule 87 (Factor -> REAL .)
+    TO              reduce using rule 87 (Factor -> REAL .)
+    DOWNTO          reduce using rule 87 (Factor -> REAL .)
 
 
 state 66
 
-    (90) Factor -> ID .
-    (91) Factor -> ID . [ Exp ]
-    (92) Factor -> ID . ( ArgumentList )
+    (88) Factor -> STR .
 
-    *               reduce using rule 90 (Factor -> ID .)
-    /               reduce using rule 90 (Factor -> ID .)
-    DIV             reduce using rule 90 (Factor -> ID .)
-    MOD             reduce using rule 90 (Factor -> ID .)
-    +               reduce using rule 90 (Factor -> ID .)
-    -               reduce using rule 90 (Factor -> ID .)
-    =               reduce using rule 90 (Factor -> ID .)
-    NE              reduce using rule 90 (Factor -> ID .)
-    <               reduce using rule 90 (Factor -> ID .)
-    LE              reduce using rule 90 (Factor -> ID .)
-    >               reduce using rule 90 (Factor -> ID .)
-    GE              reduce using rule 90 (Factor -> ID .)
-    ,               reduce using rule 90 (Factor -> ID .)
-    )               reduce using rule 90 (Factor -> ID .)
-    ;               reduce using rule 90 (Factor -> ID .)
-    ]               reduce using rule 90 (Factor -> ID .)
-    AND             reduce using rule 90 (Factor -> ID .)
-    THEN            reduce using rule 90 (Factor -> ID .)
-    OR              reduce using rule 90 (Factor -> ID .)
-    DO              reduce using rule 90 (Factor -> ID .)
-    TO              reduce using rule 90 (Factor -> ID .)
-    DOWNTO          reduce using rule 90 (Factor -> ID .)
-    [               shift and go to state 120
-    (               shift and go to state 121
+    *               reduce using rule 88 (Factor -> STR .)
+    /               reduce using rule 88 (Factor -> STR .)
+    DIV             reduce using rule 88 (Factor -> STR .)
+    MOD             reduce using rule 88 (Factor -> STR .)
+    +               reduce using rule 88 (Factor -> STR .)
+    -               reduce using rule 88 (Factor -> STR .)
+    =               reduce using rule 88 (Factor -> STR .)
+    NE              reduce using rule 88 (Factor -> STR .)
+    <               reduce using rule 88 (Factor -> STR .)
+    LE              reduce using rule 88 (Factor -> STR .)
+    >               reduce using rule 88 (Factor -> STR .)
+    GE              reduce using rule 88 (Factor -> STR .)
+    ;               reduce using rule 88 (Factor -> STR .)
+    ]               reduce using rule 88 (Factor -> STR .)
+    )               reduce using rule 88 (Factor -> STR .)
+    AND             reduce using rule 88 (Factor -> STR .)
+    THEN            reduce using rule 88 (Factor -> STR .)
+    OR              reduce using rule 88 (Factor -> STR .)
+    DO              reduce using rule 88 (Factor -> STR .)
+    ,               reduce using rule 88 (Factor -> STR .)
+    TO              reduce using rule 88 (Factor -> STR .)
+    DOWNTO          reduce using rule 88 (Factor -> STR .)
 
 
 state 67
+
+    (94) Factor -> LENGTH . ( ArgumentList )
+
+    (               shift and go to state 124
+
+
+state 68
 
     (55) Block -> WHILE Condition . DO Block
     (56) Block -> WHILE Condition . DO BEGIN Blocks END ;
     (62) Condition -> Condition . OR CondTerm
 
-    DO              shift and go to state 122
-    OR              shift and go to state 102
+    DO              shift and go to state 125
+    OR              shift and go to state 104
 
 
-state 68
+state 69
 
     (57) Block -> FOR ID . ASSIGN Exp TO Exp DO Block
     (58) Block -> FOR ID . ASSIGN Exp TO Exp DO BEGIN Blocks END ;
     (59) Block -> FOR ID . ASSIGN Exp DOWNTO Exp DO Block
     (60) Block -> FOR ID . ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ;
 
-    ASSIGN          shift and go to state 123
-
-
-state 69
-
-    (61) Block -> REPEAT Blocks . UNTIL Condition ;
-
-    UNTIL           shift and go to state 124
+    ASSIGN          shift and go to state 126
 
 
 state 70
 
-    (17) VarList -> IDList : Type . ; VarList
+    (61) Block -> REPEAT Blocks . UNTIL Condition ;
 
-    ;               shift and go to state 125
+    UNTIL           shift and go to state 127
 
 
 state 71
+
+    (17) VarList -> IDList : Type . ; VarList
+
+    ;               shift and go to state 128
+
+
+state 72
 
     (22) Type -> INTEGER .
 
@@ -1523,7 +1551,7 @@ state 71
     )               reduce using rule 22 (Type -> INTEGER .)
 
 
-state 72
+state 73
 
     (23) Type -> BOOLEAN .
 
@@ -1531,7 +1559,7 @@ state 72
     )               reduce using rule 23 (Type -> BOOLEAN .)
 
 
-state 73
+state 74
 
     (24) Type -> STRING .
 
@@ -1539,7 +1567,7 @@ state 73
     )               reduce using rule 24 (Type -> STRING .)
 
 
-state 74
+state 75
 
     (25) Type -> REALTYPE .
 
@@ -1547,7 +1575,7 @@ state 74
     )               reduce using rule 25 (Type -> REALTYPE .)
 
 
-state 75
+state 76
 
     (26) Type -> CHAR .
 
@@ -1555,14 +1583,14 @@ state 75
     )               reduce using rule 26 (Type -> CHAR .)
 
 
-state 76
+state 77
 
     (27) Type -> ARRAY . [ INT DOTDOT INT ] OF Type
 
-    [               shift and go to state 126
+    [               shift and go to state 129
 
 
-state 77
+state 78
 
     (20) RestoIDs -> , ID . RestoIDs
     (20) RestoIDs -> . , ID RestoIDs
@@ -1571,79 +1599,79 @@ state 77
     ,               shift and go to state 40
     :               reduce using rule 21 (RestoIDs -> .)
 
-    RestoIDs                       shift and go to state 127
+    RestoIDs                       shift and go to state 130
 
-state 78
+state 79
 
     (9) ConstDefs -> ID = ConstValue . ; ConstDefs
 
-    ;               shift and go to state 128
+    ;               shift and go to state 131
 
 
-state 79
+state 80
 
     (11) ConstValue -> INT .
 
     ;               reduce using rule 11 (ConstValue -> INT .)
 
 
-state 80
+state 81
 
     (12) ConstValue -> REAL .
 
     ;               reduce using rule 12 (ConstValue -> REAL .)
 
 
-state 81
+state 82
 
     (13) ConstValue -> STR .
 
     ;               reduce using rule 13 (ConstValue -> STR .)
 
 
-state 82
+state 83
 
     (14) ConstValue -> TRUE .
 
     ;               reduce using rule 14 (ConstValue -> TRUE .)
 
 
-state 83
+state 84
 
     (15) ConstValue -> FALSE .
 
     ;               reduce using rule 15 (ConstValue -> FALSE .)
 
 
-state 84
-
-    (28) Functions -> FUNCTION ID ( Parameters . ) : Type ; FunctionBody
-
-    )               shift and go to state 129
-
-
 state 85
 
-    (34) Parameters -> IDList . : Type MoreParameters
-
-    :               shift and go to state 130
-
-
-state 86
-
-    (29) Functions -> FUNCTION ID : Type . ; FunctionBody
-
-    ;               shift and go to state 131
-
-
-state 87
-
-    (31) Procedures -> PROCEDURE ID ( Parameters . ) ; ProcedureBody
+    (28) Functions -> FUNCTION ID ( Parameters . ) : Type ; FunctionBody
 
     )               shift and go to state 132
 
 
+state 86
+
+    (34) Parameters -> IDList . : Type MoreParameters
+
+    :               shift and go to state 133
+
+
+state 87
+
+    (29) Functions -> FUNCTION ID : Type . ; FunctionBody
+
+    ;               shift and go to state 134
+
+
 state 88
+
+    (31) Procedures -> PROCEDURE ID ( Parameters . ) ; ProcedureBody
+
+    )               shift and go to state 135
+
+
+state 89
 
     (32) Procedures -> PROCEDURE ID ; ProcedureBody .
 
@@ -1654,191 +1682,225 @@ state 88
     BEGIN           reduce using rule 32 (Procedures -> PROCEDURE ID ; ProcedureBody .)
 
 
-state 89
+state 90
 
     (33) ProcedureBody -> Declarations . BEGIN Blocks END ;
 
-    BEGIN           shift and go to state 133
+    BEGIN           shift and go to state 136
 
-
-state 90
-
-    (93) Factor -> ( . Exp )
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
-
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
-
-    Exp                            shift and go to state 134
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
 
 state 91
 
-    (40) Block -> WRITELN ( WriteList . ) ;
+    (95) Factor -> ( . Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    )               shift and go to state 135
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
+    Exp                            shift and go to state 137
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 92
+
+    (40) Block -> WRITELN ( WriteList . ) ;
+
+    )               shift and go to state 138
+
+
+state 93
 
     (42) WriteList -> WriteItem . MoreWriteItems
     (43) MoreWriteItems -> . , WriteItem MoreWriteItems
     (44) MoreWriteItems -> .
 
-    ,               shift and go to state 137
+    ,               shift and go to state 140
     )               reduce using rule 44 (MoreWriteItems -> .)
 
-    MoreWriteItems                 shift and go to state 136
+    MoreWriteItems                 shift and go to state 139
 
-state 93
+state 94
 
     (45) WriteItem -> STR .
-    (87) Factor -> STR .
+    (88) Factor -> STR .
 
   ! reduce/reduce conflict for , resolved using rule 45 (WriteItem -> STR .)
   ! reduce/reduce conflict for ) resolved using rule 45 (WriteItem -> STR .)
     ,               reduce using rule 45 (WriteItem -> STR .)
     )               reduce using rule 45 (WriteItem -> STR .)
-    *               reduce using rule 87 (Factor -> STR .)
-    /               reduce using rule 87 (Factor -> STR .)
-    DIV             reduce using rule 87 (Factor -> STR .)
-    MOD             reduce using rule 87 (Factor -> STR .)
-    +               reduce using rule 87 (Factor -> STR .)
-    -               reduce using rule 87 (Factor -> STR .)
+    *               reduce using rule 88 (Factor -> STR .)
+    /               reduce using rule 88 (Factor -> STR .)
+    DIV             reduce using rule 88 (Factor -> STR .)
+    MOD             reduce using rule 88 (Factor -> STR .)
+    +               reduce using rule 88 (Factor -> STR .)
+    -               reduce using rule 88 (Factor -> STR .)
 
-  ! ,               [ reduce using rule 87 (Factor -> STR .) ]
-  ! )               [ reduce using rule 87 (Factor -> STR .) ]
-
-
-state 94
-
-    (46) WriteItem -> Exp .
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-
-    ,               reduce using rule 46 (WriteItem -> Exp .)
-    )               reduce using rule 46 (WriteItem -> Exp .)
-    +               shift and go to state 106
-    -               shift and go to state 107
+  ! ,               [ reduce using rule 88 (Factor -> STR .) ]
+  ! )               [ reduce using rule 88 (Factor -> STR .) ]
 
 
 state 95
 
-    (88) Factor -> TRUE .
+    (46) WriteItem -> Exp .
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
-    *               reduce using rule 88 (Factor -> TRUE .)
-    /               reduce using rule 88 (Factor -> TRUE .)
-    DIV             reduce using rule 88 (Factor -> TRUE .)
-    MOD             reduce using rule 88 (Factor -> TRUE .)
-    +               reduce using rule 88 (Factor -> TRUE .)
-    -               reduce using rule 88 (Factor -> TRUE .)
-    ,               reduce using rule 88 (Factor -> TRUE .)
-    )               reduce using rule 88 (Factor -> TRUE .)
-    ;               reduce using rule 88 (Factor -> TRUE .)
-    ]               reduce using rule 88 (Factor -> TRUE .)
-    AND             reduce using rule 88 (Factor -> TRUE .)
-    THEN            reduce using rule 88 (Factor -> TRUE .)
-    OR              reduce using rule 88 (Factor -> TRUE .)
-    DO              reduce using rule 88 (Factor -> TRUE .)
-    =               reduce using rule 88 (Factor -> TRUE .)
-    NE              reduce using rule 88 (Factor -> TRUE .)
-    <               reduce using rule 88 (Factor -> TRUE .)
-    LE              reduce using rule 88 (Factor -> TRUE .)
-    >               reduce using rule 88 (Factor -> TRUE .)
-    GE              reduce using rule 88 (Factor -> TRUE .)
-    TO              reduce using rule 88 (Factor -> TRUE .)
-    DOWNTO          reduce using rule 88 (Factor -> TRUE .)
+    ,               reduce using rule 46 (WriteItem -> Exp .)
+    )               reduce using rule 46 (WriteItem -> Exp .)
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
 state 96
 
-    (89) Factor -> FALSE .
+    (89) Factor -> TRUE .
 
-    *               reduce using rule 89 (Factor -> FALSE .)
-    /               reduce using rule 89 (Factor -> FALSE .)
-    DIV             reduce using rule 89 (Factor -> FALSE .)
-    MOD             reduce using rule 89 (Factor -> FALSE .)
-    +               reduce using rule 89 (Factor -> FALSE .)
-    -               reduce using rule 89 (Factor -> FALSE .)
-    ,               reduce using rule 89 (Factor -> FALSE .)
-    )               reduce using rule 89 (Factor -> FALSE .)
-    ;               reduce using rule 89 (Factor -> FALSE .)
-    ]               reduce using rule 89 (Factor -> FALSE .)
-    AND             reduce using rule 89 (Factor -> FALSE .)
-    THEN            reduce using rule 89 (Factor -> FALSE .)
-    OR              reduce using rule 89 (Factor -> FALSE .)
-    DO              reduce using rule 89 (Factor -> FALSE .)
-    =               reduce using rule 89 (Factor -> FALSE .)
-    NE              reduce using rule 89 (Factor -> FALSE .)
-    <               reduce using rule 89 (Factor -> FALSE .)
-    LE              reduce using rule 89 (Factor -> FALSE .)
-    >               reduce using rule 89 (Factor -> FALSE .)
-    GE              reduce using rule 89 (Factor -> FALSE .)
-    TO              reduce using rule 89 (Factor -> FALSE .)
-    DOWNTO          reduce using rule 89 (Factor -> FALSE .)
+    *               reduce using rule 89 (Factor -> TRUE .)
+    /               reduce using rule 89 (Factor -> TRUE .)
+    DIV             reduce using rule 89 (Factor -> TRUE .)
+    MOD             reduce using rule 89 (Factor -> TRUE .)
+    +               reduce using rule 89 (Factor -> TRUE .)
+    -               reduce using rule 89 (Factor -> TRUE .)
+    ,               reduce using rule 89 (Factor -> TRUE .)
+    )               reduce using rule 89 (Factor -> TRUE .)
+    ;               reduce using rule 89 (Factor -> TRUE .)
+    ]               reduce using rule 89 (Factor -> TRUE .)
+    AND             reduce using rule 89 (Factor -> TRUE .)
+    THEN            reduce using rule 89 (Factor -> TRUE .)
+    OR              reduce using rule 89 (Factor -> TRUE .)
+    DO              reduce using rule 89 (Factor -> TRUE .)
+    =               reduce using rule 89 (Factor -> TRUE .)
+    NE              reduce using rule 89 (Factor -> TRUE .)
+    <               reduce using rule 89 (Factor -> TRUE .)
+    LE              reduce using rule 89 (Factor -> TRUE .)
+    >               reduce using rule 89 (Factor -> TRUE .)
+    GE              reduce using rule 89 (Factor -> TRUE .)
+    TO              reduce using rule 89 (Factor -> TRUE .)
+    DOWNTO          reduce using rule 89 (Factor -> TRUE .)
 
 
 state 97
 
-    (41) Block -> WRITE ( WriteList . ) ;
+    (90) Factor -> FALSE .
 
-    )               shift and go to state 138
+    *               reduce using rule 90 (Factor -> FALSE .)
+    /               reduce using rule 90 (Factor -> FALSE .)
+    DIV             reduce using rule 90 (Factor -> FALSE .)
+    MOD             reduce using rule 90 (Factor -> FALSE .)
+    +               reduce using rule 90 (Factor -> FALSE .)
+    -               reduce using rule 90 (Factor -> FALSE .)
+    ,               reduce using rule 90 (Factor -> FALSE .)
+    )               reduce using rule 90 (Factor -> FALSE .)
+    ;               reduce using rule 90 (Factor -> FALSE .)
+    ]               reduce using rule 90 (Factor -> FALSE .)
+    AND             reduce using rule 90 (Factor -> FALSE .)
+    THEN            reduce using rule 90 (Factor -> FALSE .)
+    OR              reduce using rule 90 (Factor -> FALSE .)
+    DO              reduce using rule 90 (Factor -> FALSE .)
+    =               reduce using rule 90 (Factor -> FALSE .)
+    NE              reduce using rule 90 (Factor -> FALSE .)
+    <               reduce using rule 90 (Factor -> FALSE .)
+    LE              reduce using rule 90 (Factor -> FALSE .)
+    >               reduce using rule 90 (Factor -> FALSE .)
+    GE              reduce using rule 90 (Factor -> FALSE .)
+    TO              reduce using rule 90 (Factor -> FALSE .)
+    DOWNTO          reduce using rule 90 (Factor -> FALSE .)
 
 
 state 98
 
-    (47) Block -> READLN ( ID . ) ;
-    (48) Block -> READLN ( ID . [ Exp ] ) ;
+    (91) Factor -> ID .
+    (92) Factor -> ID . [ Exp ]
+    (93) Factor -> ID . ( ArgumentList )
 
-    )               shift and go to state 139
-    [               shift and go to state 140
+    *               reduce using rule 91 (Factor -> ID .)
+    /               reduce using rule 91 (Factor -> ID .)
+    DIV             reduce using rule 91 (Factor -> ID .)
+    MOD             reduce using rule 91 (Factor -> ID .)
+    +               reduce using rule 91 (Factor -> ID .)
+    -               reduce using rule 91 (Factor -> ID .)
+    ,               reduce using rule 91 (Factor -> ID .)
+    )               reduce using rule 91 (Factor -> ID .)
+    ;               reduce using rule 91 (Factor -> ID .)
+    ]               reduce using rule 91 (Factor -> ID .)
+    AND             reduce using rule 91 (Factor -> ID .)
+    THEN            reduce using rule 91 (Factor -> ID .)
+    OR              reduce using rule 91 (Factor -> ID .)
+    DO              reduce using rule 91 (Factor -> ID .)
+    =               reduce using rule 91 (Factor -> ID .)
+    NE              reduce using rule 91 (Factor -> ID .)
+    <               reduce using rule 91 (Factor -> ID .)
+    LE              reduce using rule 91 (Factor -> ID .)
+    >               reduce using rule 91 (Factor -> ID .)
+    GE              reduce using rule 91 (Factor -> ID .)
+    TO              reduce using rule 91 (Factor -> ID .)
+    DOWNTO          reduce using rule 91 (Factor -> ID .)
+    [               shift and go to state 118
+    (               shift and go to state 119
 
 
 state 99
 
-    (49) Block -> ID ASSIGN Exp . ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (41) Block -> WRITE ( WriteList . ) ;
 
-    ;               shift and go to state 141
-    +               shift and go to state 106
-    -               shift and go to state 107
+    )               shift and go to state 141
 
 
 state 100
 
-    (50) Block -> ID [ Exp . ] ASSIGN Exp ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (47) Block -> READLN ( ID . ) ;
+    (48) Block -> READLN ( ID . [ Exp ] ) ;
 
-    ]               shift and go to state 142
-    +               shift and go to state 106
-    -               shift and go to state 107
+    )               shift and go to state 142
+    [               shift and go to state 143
 
 
 state 101
+
+    (49) Block -> ID ASSIGN Exp . ;
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+
+    ;               shift and go to state 144
+    +               shift and go to state 108
+    -               shift and go to state 109
+
+
+state 102
+
+    (50) Block -> ID [ Exp . ] ASSIGN Exp ;
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+
+    ]               shift and go to state 145
+    +               shift and go to state 108
+    -               shift and go to state 109
+
+
+state 103
 
     (51) Block -> IF Condition THEN . Block
     (52) Block -> IF Condition THEN . Block ELSE Block
@@ -1862,7 +1924,7 @@ state 101
     (60) Block -> . FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ;
     (61) Block -> . REPEAT Blocks UNTIL Condition ;
 
-    BEGIN           shift and go to state 144
+    BEGIN           shift and go to state 147
     WRITELN         shift and go to state 30
     WRITE           shift and go to state 31
     READLN          shift and go to state 32
@@ -1872,9 +1934,9 @@ state 101
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Block                          shift and go to state 143
+    Block                          shift and go to state 146
 
-state 102
+state 104
 
     (62) Condition -> Condition OR . CondTerm
     (64) CondTerm -> . CondTerm AND CondFactor
@@ -1884,40 +1946,43 @@ state 102
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
-    CondTerm                       shift and go to state 145
+    CondTerm                       shift and go to state 148
     CondFactor                     shift and go to state 55
     Exp                            shift and go to state 57
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 103
+state 105
 
     (64) CondTerm -> CondTerm AND . CondFactor
     (66) CondFactor -> . NOT CondFactor
@@ -1925,39 +1990,42 @@ state 103
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
-    CondFactor                     shift and go to state 146
+    CondFactor                     shift and go to state 149
     Exp                            shift and go to state 57
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 104
+state 106
 
     (66) CondFactor -> NOT CondFactor .
 
@@ -1969,372 +2037,435 @@ state 104
     ;               reduce using rule 66 (CondFactor -> NOT CondFactor .)
 
 
-state 105
-
-    (67) CondFactor -> Exp RelOp . Exp
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
-
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
-
-    Exp                            shift and go to state 147
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
-
-state 106
-
-    (77) Exp -> Exp + . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
-
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
-
-    Term                           shift and go to state 148
-    Factor                         shift and go to state 62
-
 state 107
 
-    (78) Exp -> Exp - . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (67) CondFactor -> Exp RelOp . Exp
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Term                           shift and go to state 149
-    Factor                         shift and go to state 62
+    Exp                            shift and go to state 150
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 108
 
-    (71) RelOp -> = .
+    (78) Exp -> Exp + . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             reduce using rule 71 (RelOp -> = .)
-    REAL            reduce using rule 71 (RelOp -> = .)
-    STR             reduce using rule 71 (RelOp -> = .)
-    TRUE            reduce using rule 71 (RelOp -> = .)
-    FALSE           reduce using rule 71 (RelOp -> = .)
-    ID              reduce using rule 71 (RelOp -> = .)
-    (               reduce using rule 71 (RelOp -> = .)
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
+    Term                           shift and go to state 151
+    Factor                         shift and go to state 63
 
 state 109
 
-    (72) RelOp -> NE .
+    (79) Exp -> Exp - . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             reduce using rule 72 (RelOp -> NE .)
-    REAL            reduce using rule 72 (RelOp -> NE .)
-    STR             reduce using rule 72 (RelOp -> NE .)
-    TRUE            reduce using rule 72 (RelOp -> NE .)
-    FALSE           reduce using rule 72 (RelOp -> NE .)
-    ID              reduce using rule 72 (RelOp -> NE .)
-    (               reduce using rule 72 (RelOp -> NE .)
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
+    Term                           shift and go to state 152
+    Factor                         shift and go to state 63
 
 state 110
 
-    (73) RelOp -> < .
+    (72) RelOp -> = .
 
-    INT             reduce using rule 73 (RelOp -> < .)
-    REAL            reduce using rule 73 (RelOp -> < .)
-    STR             reduce using rule 73 (RelOp -> < .)
-    TRUE            reduce using rule 73 (RelOp -> < .)
-    FALSE           reduce using rule 73 (RelOp -> < .)
-    ID              reduce using rule 73 (RelOp -> < .)
-    (               reduce using rule 73 (RelOp -> < .)
+    INT             reduce using rule 72 (RelOp -> = .)
+    REAL            reduce using rule 72 (RelOp -> = .)
+    STR             reduce using rule 72 (RelOp -> = .)
+    TRUE            reduce using rule 72 (RelOp -> = .)
+    FALSE           reduce using rule 72 (RelOp -> = .)
+    ID              reduce using rule 72 (RelOp -> = .)
+    LENGTH          reduce using rule 72 (RelOp -> = .)
+    (               reduce using rule 72 (RelOp -> = .)
 
 
 state 111
 
-    (74) RelOp -> LE .
+    (73) RelOp -> NE .
 
-    INT             reduce using rule 74 (RelOp -> LE .)
-    REAL            reduce using rule 74 (RelOp -> LE .)
-    STR             reduce using rule 74 (RelOp -> LE .)
-    TRUE            reduce using rule 74 (RelOp -> LE .)
-    FALSE           reduce using rule 74 (RelOp -> LE .)
-    ID              reduce using rule 74 (RelOp -> LE .)
-    (               reduce using rule 74 (RelOp -> LE .)
+    INT             reduce using rule 73 (RelOp -> NE .)
+    REAL            reduce using rule 73 (RelOp -> NE .)
+    STR             reduce using rule 73 (RelOp -> NE .)
+    TRUE            reduce using rule 73 (RelOp -> NE .)
+    FALSE           reduce using rule 73 (RelOp -> NE .)
+    ID              reduce using rule 73 (RelOp -> NE .)
+    LENGTH          reduce using rule 73 (RelOp -> NE .)
+    (               reduce using rule 73 (RelOp -> NE .)
 
 
 state 112
 
-    (75) RelOp -> > .
+    (74) RelOp -> < .
 
-    INT             reduce using rule 75 (RelOp -> > .)
-    REAL            reduce using rule 75 (RelOp -> > .)
-    STR             reduce using rule 75 (RelOp -> > .)
-    TRUE            reduce using rule 75 (RelOp -> > .)
-    FALSE           reduce using rule 75 (RelOp -> > .)
-    ID              reduce using rule 75 (RelOp -> > .)
-    (               reduce using rule 75 (RelOp -> > .)
+    INT             reduce using rule 74 (RelOp -> < .)
+    REAL            reduce using rule 74 (RelOp -> < .)
+    STR             reduce using rule 74 (RelOp -> < .)
+    TRUE            reduce using rule 74 (RelOp -> < .)
+    FALSE           reduce using rule 74 (RelOp -> < .)
+    ID              reduce using rule 74 (RelOp -> < .)
+    LENGTH          reduce using rule 74 (RelOp -> < .)
+    (               reduce using rule 74 (RelOp -> < .)
 
 
 state 113
 
-    (76) RelOp -> GE .
+    (75) RelOp -> LE .
 
-    INT             reduce using rule 76 (RelOp -> GE .)
-    REAL            reduce using rule 76 (RelOp -> GE .)
-    STR             reduce using rule 76 (RelOp -> GE .)
-    TRUE            reduce using rule 76 (RelOp -> GE .)
-    FALSE           reduce using rule 76 (RelOp -> GE .)
-    ID              reduce using rule 76 (RelOp -> GE .)
-    (               reduce using rule 76 (RelOp -> GE .)
+    INT             reduce using rule 75 (RelOp -> LE .)
+    REAL            reduce using rule 75 (RelOp -> LE .)
+    STR             reduce using rule 75 (RelOp -> LE .)
+    TRUE            reduce using rule 75 (RelOp -> LE .)
+    FALSE           reduce using rule 75 (RelOp -> LE .)
+    ID              reduce using rule 75 (RelOp -> LE .)
+    LENGTH          reduce using rule 75 (RelOp -> LE .)
+    (               reduce using rule 75 (RelOp -> LE .)
 
 
 state 114
 
-    (68) CondFactor -> ( Condition . )
-    (62) Condition -> Condition . OR CondTerm
+    (76) RelOp -> > .
 
-    )               shift and go to state 150
-    OR              shift and go to state 102
+    INT             reduce using rule 76 (RelOp -> > .)
+    REAL            reduce using rule 76 (RelOp -> > .)
+    STR             reduce using rule 76 (RelOp -> > .)
+    TRUE            reduce using rule 76 (RelOp -> > .)
+    FALSE           reduce using rule 76 (RelOp -> > .)
+    ID              reduce using rule 76 (RelOp -> > .)
+    LENGTH          reduce using rule 76 (RelOp -> > .)
+    (               reduce using rule 76 (RelOp -> > .)
 
 
 state 115
 
-    (93) Factor -> ( Exp . )
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-    (67) CondFactor -> Exp . RelOp Exp
-    (71) RelOp -> . =
-    (72) RelOp -> . NE
-    (73) RelOp -> . <
-    (74) RelOp -> . LE
-    (75) RelOp -> . >
-    (76) RelOp -> . GE
+    (77) RelOp -> GE .
 
-    )               shift and go to state 151
-    +               shift and go to state 106
-    -               shift and go to state 107
-    =               shift and go to state 108
-    NE              shift and go to state 109
-    <               shift and go to state 110
-    LE              shift and go to state 111
-    >               shift and go to state 112
-    GE              shift and go to state 113
+    INT             reduce using rule 77 (RelOp -> GE .)
+    REAL            reduce using rule 77 (RelOp -> GE .)
+    STR             reduce using rule 77 (RelOp -> GE .)
+    TRUE            reduce using rule 77 (RelOp -> GE .)
+    FALSE           reduce using rule 77 (RelOp -> GE .)
+    ID              reduce using rule 77 (RelOp -> GE .)
+    LENGTH          reduce using rule 77 (RelOp -> GE .)
+    (               reduce using rule 77 (RelOp -> GE .)
 
-    RelOp                          shift and go to state 105
 
 state 116
 
-    (80) Term -> Term * . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (68) CondFactor -> ( Condition . )
+    (62) Condition -> Condition . OR CondTerm
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    )               shift and go to state 153
+    OR              shift and go to state 104
 
-    Factor                         shift and go to state 152
 
 state 117
 
-    (81) Term -> Term / . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (95) Factor -> ( Exp . )
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+    (67) CondFactor -> Exp . RelOp Exp
+    (72) RelOp -> . =
+    (73) RelOp -> . NE
+    (74) RelOp -> . <
+    (75) RelOp -> . LE
+    (76) RelOp -> . >
+    (77) RelOp -> . GE
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    )               shift and go to state 154
+    +               shift and go to state 108
+    -               shift and go to state 109
+    =               shift and go to state 110
+    NE              shift and go to state 111
+    <               shift and go to state 112
+    LE              shift and go to state 113
+    >               shift and go to state 114
+    GE              shift and go to state 115
 
-    Factor                         shift and go to state 153
+    RelOp                          shift and go to state 107
 
 state 118
 
-    (82) Term -> Term DIV . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (92) Factor -> ID [ . Exp ]
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Factor                         shift and go to state 154
+    Exp                            shift and go to state 155
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 119
 
-    (83) Term -> Term MOD . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (93) Factor -> ID ( . ArgumentList )
+    (96) ArgumentList -> . Exp MoreArguments
+    (97) ArgumentList -> .
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    )               reduce using rule 97 (ArgumentList -> .)
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Factor                         shift and go to state 155
+    ArgumentList                   shift and go to state 156
+    Exp                            shift and go to state 157
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
 state 120
 
-    (91) Factor -> ID [ . Exp ]
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (81) Term -> Term * . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Exp                            shift and go to state 156
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Factor                         shift and go to state 158
 
 state 121
 
-    (92) Factor -> ID ( . ArgumentList )
-    (94) ArgumentList -> . Exp MoreArguments
-    (95) ArgumentList -> .
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (82) Term -> Term / . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    )               reduce using rule 95 (ArgumentList -> .)
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    ArgumentList                   shift and go to state 157
-    Exp                            shift and go to state 158
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Factor                         shift and go to state 159
 
 state 122
+
+    (83) Term -> Term DIV . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
+
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
+
+    Factor                         shift and go to state 160
+
+state 123
+
+    (84) Term -> Term MOD . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
+
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
+
+    Factor                         shift and go to state 161
+
+state 124
+
+    (94) Factor -> LENGTH ( . ArgumentList )
+    (96) ArgumentList -> . Exp MoreArguments
+    (97) ArgumentList -> .
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
+
+    )               reduce using rule 97 (ArgumentList -> .)
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
+
+    ArgumentList                   shift and go to state 162
+    Exp                            shift and go to state 157
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
+
+state 125
 
     (55) Block -> WHILE Condition DO . Block
     (56) Block -> WHILE Condition DO . BEGIN Blocks END ;
@@ -2356,7 +2487,7 @@ state 122
     (60) Block -> . FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ;
     (61) Block -> . REPEAT Blocks UNTIL Condition ;
 
-    BEGIN           shift and go to state 160
+    BEGIN           shift and go to state 164
     WRITELN         shift and go to state 30
     WRITE           shift and go to state 31
     READLN          shift and go to state 32
@@ -2366,45 +2497,47 @@ state 122
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Block                          shift and go to state 159
+    Block                          shift and go to state 163
 
-state 123
+state 126
 
     (57) Block -> FOR ID ASSIGN . Exp TO Exp DO Block
     (58) Block -> FOR ID ASSIGN . Exp TO Exp DO BEGIN Blocks END ;
     (59) Block -> FOR ID ASSIGN . Exp DOWNTO Exp DO Block
     (60) Block -> FOR ID ASSIGN . Exp DOWNTO Exp DO BEGIN Blocks END ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Exp                            shift and go to state 161
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Exp                            shift and go to state 165
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 124
+state 127
 
     (61) Block -> REPEAT Blocks UNTIL . Condition ;
     (62) Condition -> . Condition OR CondTerm
@@ -2416,41 +2549,44 @@ state 124
     (68) CondFactor -> . ( Condition )
     (69) CondFactor -> . TRUE
     (70) CondFactor -> . FALSE
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (71) CondFactor -> . ID
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
     NOT             shift and go to state 56
     (               shift and go to state 58
     TRUE            shift and go to state 59
     FALSE           shift and go to state 60
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    ID              shift and go to state 66
+    ID              shift and go to state 61
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    LENGTH          shift and go to state 67
 
-    Condition                      shift and go to state 162
+    Condition                      shift and go to state 166
     CondTerm                       shift and go to state 54
     CondFactor                     shift and go to state 55
     Exp                            shift and go to state 57
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 125
+state 128
 
     (17) VarList -> IDList : Type ; . VarList
     (17) VarList -> . IDList : Type ; VarList
@@ -2465,23 +2601,23 @@ state 125
     ID              shift and go to state 23
 
     IDList                         shift and go to state 22
-    VarList                        shift and go to state 163
+    VarList                        shift and go to state 167
 
-state 126
+state 129
 
     (27) Type -> ARRAY [ . INT DOTDOT INT ] OF Type
 
-    INT             shift and go to state 164
+    INT             shift and go to state 168
 
 
-state 127
+state 130
 
     (20) RestoIDs -> , ID RestoIDs .
 
     :               reduce using rule 20 (RestoIDs -> , ID RestoIDs .)
 
 
-state 128
+state 131
 
     (9) ConstDefs -> ID = ConstValue ; . ConstDefs
     (9) ConstDefs -> . ID = ConstValue ; ConstDefs
@@ -2494,16 +2630,16 @@ state 128
     PROCEDURE       reduce using rule 10 (ConstDefs -> .)
     BEGIN           reduce using rule 10 (ConstDefs -> .)
 
-    ConstDefs                      shift and go to state 165
+    ConstDefs                      shift and go to state 169
 
-state 129
+state 132
 
     (28) Functions -> FUNCTION ID ( Parameters ) . : Type ; FunctionBody
 
-    :               shift and go to state 166
+    :               shift and go to state 170
 
 
-state 130
+state 133
 
     (34) Parameters -> IDList : . Type MoreParameters
     (22) Type -> . INTEGER
@@ -2513,16 +2649,16 @@ state 130
     (26) Type -> . CHAR
     (27) Type -> . ARRAY [ INT DOTDOT INT ] OF Type
 
-    INTEGER         shift and go to state 71
-    BOOLEAN         shift and go to state 72
-    STRING          shift and go to state 73
-    REALTYPE        shift and go to state 74
-    CHAR            shift and go to state 75
-    ARRAY           shift and go to state 76
+    INTEGER         shift and go to state 72
+    BOOLEAN         shift and go to state 73
+    STRING          shift and go to state 74
+    REALTYPE        shift and go to state 75
+    CHAR            shift and go to state 76
+    ARRAY           shift and go to state 77
 
-    Type                           shift and go to state 167
+    Type                           shift and go to state 171
 
-state 131
+state 134
 
     (29) Functions -> FUNCTION ID : Type ; . FunctionBody
     (30) FunctionBody -> . Declarations BEGIN Blocks END ;
@@ -2544,21 +2680,21 @@ state 131
     FUNCTION        shift and go to state 13
     PROCEDURE       shift and go to state 14
 
-    FunctionBody                   shift and go to state 168
-    Declarations                   shift and go to state 169
+    FunctionBody                   shift and go to state 172
+    Declarations                   shift and go to state 173
     Vars                           shift and go to state 7
     Consts                         shift and go to state 8
     Functions                      shift and go to state 9
     Procedures                     shift and go to state 10
 
-state 132
+state 135
 
     (31) Procedures -> PROCEDURE ID ( Parameters ) . ; ProcedureBody
 
-    ;               shift and go to state 170
+    ;               shift and go to state 174
 
 
-state 133
+state 136
 
     (33) ProcedureBody -> Declarations BEGIN . Blocks END ;
     (38) Blocks -> . Block Blocks
@@ -2591,118 +2727,122 @@ state 133
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 171
+    Blocks                         shift and go to state 175
     Block                          shift and go to state 29
 
-state 134
+state 137
 
-    (93) Factor -> ( Exp . )
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (95) Factor -> ( Exp . )
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
-    )               shift and go to state 151
-    +               shift and go to state 106
-    -               shift and go to state 107
+    )               shift and go to state 154
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
-state 135
+state 138
 
     (40) Block -> WRITELN ( WriteList ) . ;
 
-    ;               shift and go to state 172
+    ;               shift and go to state 176
 
 
-state 136
+state 139
 
     (42) WriteList -> WriteItem MoreWriteItems .
 
     )               reduce using rule 42 (WriteList -> WriteItem MoreWriteItems .)
 
 
-state 137
+state 140
 
     (43) MoreWriteItems -> , . WriteItem MoreWriteItems
     (45) WriteItem -> . STR
     (46) WriteItem -> . Exp
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    STR             shift and go to state 93
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    STR             shift and go to state 94
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    WriteItem                      shift and go to state 173
-    Exp                            shift and go to state 94
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    WriteItem                      shift and go to state 177
+    Exp                            shift and go to state 95
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 138
+state 141
 
     (41) Block -> WRITE ( WriteList ) . ;
 
-    ;               shift and go to state 174
+    ;               shift and go to state 178
 
 
-state 139
+state 142
 
     (47) Block -> READLN ( ID ) . ;
 
-    ;               shift and go to state 175
+    ;               shift and go to state 179
 
 
-state 140
+state 143
 
     (48) Block -> READLN ( ID [ . Exp ] ) ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Exp                            shift and go to state 176
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Exp                            shift and go to state 180
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 141
+state 144
 
     (49) Block -> ID ASSIGN Exp ; .
 
@@ -2719,14 +2859,14 @@ state 141
     ELSE            reduce using rule 49 (Block -> ID ASSIGN Exp ; .)
 
 
-state 142
+state 145
 
     (50) Block -> ID [ Exp ] . ASSIGN Exp ;
 
-    ASSIGN          shift and go to state 177
+    ASSIGN          shift and go to state 181
 
 
-state 143
+state 146
 
     (51) Block -> IF Condition THEN Block .
     (52) Block -> IF Condition THEN Block . ELSE Block
@@ -2742,12 +2882,12 @@ state 143
     REPEAT          reduce using rule 51 (Block -> IF Condition THEN Block .)
     END             reduce using rule 51 (Block -> IF Condition THEN Block .)
     UNTIL           reduce using rule 51 (Block -> IF Condition THEN Block .)
-    ELSE            shift and go to state 178
+    ELSE            shift and go to state 182
 
   ! ELSE            [ reduce using rule 51 (Block -> IF Condition THEN Block .) ]
 
 
-state 144
+state 147
 
     (53) Block -> IF Condition THEN BEGIN . Blocks END ;
     (54) Block -> IF Condition THEN BEGIN . Blocks END ELSE BEGIN Blocks END ;
@@ -2781,10 +2921,10 @@ state 144
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 179
+    Blocks                         shift and go to state 183
     Block                          shift and go to state 29
 
-state 145
+state 148
 
     (62) Condition -> Condition OR CondTerm .
     (64) CondTerm -> CondTerm . AND CondFactor
@@ -2794,10 +2934,10 @@ state 145
     DO              reduce using rule 62 (Condition -> Condition OR CondTerm .)
     )               reduce using rule 62 (Condition -> Condition OR CondTerm .)
     ;               reduce using rule 62 (Condition -> Condition OR CondTerm .)
-    AND             shift and go to state 103
+    AND             shift and go to state 105
 
 
-state 146
+state 149
 
     (64) CondTerm -> CondTerm AND CondFactor .
 
@@ -2809,11 +2949,11 @@ state 146
     ;               reduce using rule 64 (CondTerm -> CondTerm AND CondFactor .)
 
 
-state 147
+state 150
 
     (67) CondFactor -> Exp RelOp Exp .
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
     AND             reduce using rule 67 (CondFactor -> Exp RelOp Exp .)
     THEN            reduce using rule 67 (CondFactor -> Exp RelOp Exp .)
@@ -2821,75 +2961,75 @@ state 147
     DO              reduce using rule 67 (CondFactor -> Exp RelOp Exp .)
     )               reduce using rule 67 (CondFactor -> Exp RelOp Exp .)
     ;               reduce using rule 67 (CondFactor -> Exp RelOp Exp .)
-    +               shift and go to state 106
-    -               shift and go to state 107
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
-state 148
+state 151
 
-    (77) Exp -> Exp + Term .
-    (80) Term -> Term . * Factor
-    (81) Term -> Term . / Factor
-    (82) Term -> Term . DIV Factor
-    (83) Term -> Term . MOD Factor
+    (78) Exp -> Exp + Term .
+    (81) Term -> Term . * Factor
+    (82) Term -> Term . / Factor
+    (83) Term -> Term . DIV Factor
+    (84) Term -> Term . MOD Factor
 
-    +               reduce using rule 77 (Exp -> Exp + Term .)
-    -               reduce using rule 77 (Exp -> Exp + Term .)
-    =               reduce using rule 77 (Exp -> Exp + Term .)
-    NE              reduce using rule 77 (Exp -> Exp + Term .)
-    <               reduce using rule 77 (Exp -> Exp + Term .)
-    LE              reduce using rule 77 (Exp -> Exp + Term .)
-    >               reduce using rule 77 (Exp -> Exp + Term .)
-    GE              reduce using rule 77 (Exp -> Exp + Term .)
-    ,               reduce using rule 77 (Exp -> Exp + Term .)
-    )               reduce using rule 77 (Exp -> Exp + Term .)
-    ;               reduce using rule 77 (Exp -> Exp + Term .)
-    ]               reduce using rule 77 (Exp -> Exp + Term .)
-    AND             reduce using rule 77 (Exp -> Exp + Term .)
-    THEN            reduce using rule 77 (Exp -> Exp + Term .)
-    OR              reduce using rule 77 (Exp -> Exp + Term .)
-    DO              reduce using rule 77 (Exp -> Exp + Term .)
-    TO              reduce using rule 77 (Exp -> Exp + Term .)
-    DOWNTO          reduce using rule 77 (Exp -> Exp + Term .)
-    *               shift and go to state 116
-    /               shift and go to state 117
-    DIV             shift and go to state 118
-    MOD             shift and go to state 119
-
-
-state 149
-
-    (78) Exp -> Exp - Term .
-    (80) Term -> Term . * Factor
-    (81) Term -> Term . / Factor
-    (82) Term -> Term . DIV Factor
-    (83) Term -> Term . MOD Factor
-
-    +               reduce using rule 78 (Exp -> Exp - Term .)
-    -               reduce using rule 78 (Exp -> Exp - Term .)
-    =               reduce using rule 78 (Exp -> Exp - Term .)
-    NE              reduce using rule 78 (Exp -> Exp - Term .)
-    <               reduce using rule 78 (Exp -> Exp - Term .)
-    LE              reduce using rule 78 (Exp -> Exp - Term .)
-    >               reduce using rule 78 (Exp -> Exp - Term .)
-    GE              reduce using rule 78 (Exp -> Exp - Term .)
-    ,               reduce using rule 78 (Exp -> Exp - Term .)
-    )               reduce using rule 78 (Exp -> Exp - Term .)
-    ;               reduce using rule 78 (Exp -> Exp - Term .)
-    ]               reduce using rule 78 (Exp -> Exp - Term .)
-    AND             reduce using rule 78 (Exp -> Exp - Term .)
-    THEN            reduce using rule 78 (Exp -> Exp - Term .)
-    OR              reduce using rule 78 (Exp -> Exp - Term .)
-    DO              reduce using rule 78 (Exp -> Exp - Term .)
-    TO              reduce using rule 78 (Exp -> Exp - Term .)
-    DOWNTO          reduce using rule 78 (Exp -> Exp - Term .)
-    *               shift and go to state 116
-    /               shift and go to state 117
-    DIV             shift and go to state 118
-    MOD             shift and go to state 119
+    +               reduce using rule 78 (Exp -> Exp + Term .)
+    -               reduce using rule 78 (Exp -> Exp + Term .)
+    =               reduce using rule 78 (Exp -> Exp + Term .)
+    NE              reduce using rule 78 (Exp -> Exp + Term .)
+    <               reduce using rule 78 (Exp -> Exp + Term .)
+    LE              reduce using rule 78 (Exp -> Exp + Term .)
+    >               reduce using rule 78 (Exp -> Exp + Term .)
+    GE              reduce using rule 78 (Exp -> Exp + Term .)
+    ,               reduce using rule 78 (Exp -> Exp + Term .)
+    )               reduce using rule 78 (Exp -> Exp + Term .)
+    ;               reduce using rule 78 (Exp -> Exp + Term .)
+    ]               reduce using rule 78 (Exp -> Exp + Term .)
+    AND             reduce using rule 78 (Exp -> Exp + Term .)
+    THEN            reduce using rule 78 (Exp -> Exp + Term .)
+    OR              reduce using rule 78 (Exp -> Exp + Term .)
+    DO              reduce using rule 78 (Exp -> Exp + Term .)
+    TO              reduce using rule 78 (Exp -> Exp + Term .)
+    DOWNTO          reduce using rule 78 (Exp -> Exp + Term .)
+    *               shift and go to state 120
+    /               shift and go to state 121
+    DIV             shift and go to state 122
+    MOD             shift and go to state 123
 
 
-state 150
+state 152
+
+    (79) Exp -> Exp - Term .
+    (81) Term -> Term . * Factor
+    (82) Term -> Term . / Factor
+    (83) Term -> Term . DIV Factor
+    (84) Term -> Term . MOD Factor
+
+    +               reduce using rule 79 (Exp -> Exp - Term .)
+    -               reduce using rule 79 (Exp -> Exp - Term .)
+    =               reduce using rule 79 (Exp -> Exp - Term .)
+    NE              reduce using rule 79 (Exp -> Exp - Term .)
+    <               reduce using rule 79 (Exp -> Exp - Term .)
+    LE              reduce using rule 79 (Exp -> Exp - Term .)
+    >               reduce using rule 79 (Exp -> Exp - Term .)
+    GE              reduce using rule 79 (Exp -> Exp - Term .)
+    ,               reduce using rule 79 (Exp -> Exp - Term .)
+    )               reduce using rule 79 (Exp -> Exp - Term .)
+    ;               reduce using rule 79 (Exp -> Exp - Term .)
+    ]               reduce using rule 79 (Exp -> Exp - Term .)
+    AND             reduce using rule 79 (Exp -> Exp - Term .)
+    THEN            reduce using rule 79 (Exp -> Exp - Term .)
+    OR              reduce using rule 79 (Exp -> Exp - Term .)
+    DO              reduce using rule 79 (Exp -> Exp - Term .)
+    TO              reduce using rule 79 (Exp -> Exp - Term .)
+    DOWNTO          reduce using rule 79 (Exp -> Exp - Term .)
+    *               shift and go to state 120
+    /               shift and go to state 121
+    DIV             shift and go to state 122
+    MOD             shift and go to state 123
+
+
+state 153
 
     (68) CondFactor -> ( Condition ) .
 
@@ -2901,180 +3041,187 @@ state 150
     ;               reduce using rule 68 (CondFactor -> ( Condition ) .)
 
 
-state 151
-
-    (93) Factor -> ( Exp ) .
-
-    *               reduce using rule 93 (Factor -> ( Exp ) .)
-    /               reduce using rule 93 (Factor -> ( Exp ) .)
-    DIV             reduce using rule 93 (Factor -> ( Exp ) .)
-    MOD             reduce using rule 93 (Factor -> ( Exp ) .)
-    +               reduce using rule 93 (Factor -> ( Exp ) .)
-    -               reduce using rule 93 (Factor -> ( Exp ) .)
-    =               reduce using rule 93 (Factor -> ( Exp ) .)
-    NE              reduce using rule 93 (Factor -> ( Exp ) .)
-    <               reduce using rule 93 (Factor -> ( Exp ) .)
-    LE              reduce using rule 93 (Factor -> ( Exp ) .)
-    >               reduce using rule 93 (Factor -> ( Exp ) .)
-    GE              reduce using rule 93 (Factor -> ( Exp ) .)
-    ,               reduce using rule 93 (Factor -> ( Exp ) .)
-    )               reduce using rule 93 (Factor -> ( Exp ) .)
-    ;               reduce using rule 93 (Factor -> ( Exp ) .)
-    ]               reduce using rule 93 (Factor -> ( Exp ) .)
-    AND             reduce using rule 93 (Factor -> ( Exp ) .)
-    THEN            reduce using rule 93 (Factor -> ( Exp ) .)
-    OR              reduce using rule 93 (Factor -> ( Exp ) .)
-    DO              reduce using rule 93 (Factor -> ( Exp ) .)
-    TO              reduce using rule 93 (Factor -> ( Exp ) .)
-    DOWNTO          reduce using rule 93 (Factor -> ( Exp ) .)
-
-
-state 152
-
-    (80) Term -> Term * Factor .
-
-    *               reduce using rule 80 (Term -> Term * Factor .)
-    /               reduce using rule 80 (Term -> Term * Factor .)
-    DIV             reduce using rule 80 (Term -> Term * Factor .)
-    MOD             reduce using rule 80 (Term -> Term * Factor .)
-    +               reduce using rule 80 (Term -> Term * Factor .)
-    -               reduce using rule 80 (Term -> Term * Factor .)
-    =               reduce using rule 80 (Term -> Term * Factor .)
-    NE              reduce using rule 80 (Term -> Term * Factor .)
-    <               reduce using rule 80 (Term -> Term * Factor .)
-    LE              reduce using rule 80 (Term -> Term * Factor .)
-    >               reduce using rule 80 (Term -> Term * Factor .)
-    GE              reduce using rule 80 (Term -> Term * Factor .)
-    ,               reduce using rule 80 (Term -> Term * Factor .)
-    )               reduce using rule 80 (Term -> Term * Factor .)
-    ;               reduce using rule 80 (Term -> Term * Factor .)
-    ]               reduce using rule 80 (Term -> Term * Factor .)
-    AND             reduce using rule 80 (Term -> Term * Factor .)
-    THEN            reduce using rule 80 (Term -> Term * Factor .)
-    OR              reduce using rule 80 (Term -> Term * Factor .)
-    DO              reduce using rule 80 (Term -> Term * Factor .)
-    TO              reduce using rule 80 (Term -> Term * Factor .)
-    DOWNTO          reduce using rule 80 (Term -> Term * Factor .)
-
-
-state 153
-
-    (81) Term -> Term / Factor .
-
-    *               reduce using rule 81 (Term -> Term / Factor .)
-    /               reduce using rule 81 (Term -> Term / Factor .)
-    DIV             reduce using rule 81 (Term -> Term / Factor .)
-    MOD             reduce using rule 81 (Term -> Term / Factor .)
-    +               reduce using rule 81 (Term -> Term / Factor .)
-    -               reduce using rule 81 (Term -> Term / Factor .)
-    =               reduce using rule 81 (Term -> Term / Factor .)
-    NE              reduce using rule 81 (Term -> Term / Factor .)
-    <               reduce using rule 81 (Term -> Term / Factor .)
-    LE              reduce using rule 81 (Term -> Term / Factor .)
-    >               reduce using rule 81 (Term -> Term / Factor .)
-    GE              reduce using rule 81 (Term -> Term / Factor .)
-    ,               reduce using rule 81 (Term -> Term / Factor .)
-    )               reduce using rule 81 (Term -> Term / Factor .)
-    ;               reduce using rule 81 (Term -> Term / Factor .)
-    ]               reduce using rule 81 (Term -> Term / Factor .)
-    AND             reduce using rule 81 (Term -> Term / Factor .)
-    THEN            reduce using rule 81 (Term -> Term / Factor .)
-    OR              reduce using rule 81 (Term -> Term / Factor .)
-    DO              reduce using rule 81 (Term -> Term / Factor .)
-    TO              reduce using rule 81 (Term -> Term / Factor .)
-    DOWNTO          reduce using rule 81 (Term -> Term / Factor .)
-
-
 state 154
 
-    (82) Term -> Term DIV Factor .
+    (95) Factor -> ( Exp ) .
 
-    *               reduce using rule 82 (Term -> Term DIV Factor .)
-    /               reduce using rule 82 (Term -> Term DIV Factor .)
-    DIV             reduce using rule 82 (Term -> Term DIV Factor .)
-    MOD             reduce using rule 82 (Term -> Term DIV Factor .)
-    +               reduce using rule 82 (Term -> Term DIV Factor .)
-    -               reduce using rule 82 (Term -> Term DIV Factor .)
-    =               reduce using rule 82 (Term -> Term DIV Factor .)
-    NE              reduce using rule 82 (Term -> Term DIV Factor .)
-    <               reduce using rule 82 (Term -> Term DIV Factor .)
-    LE              reduce using rule 82 (Term -> Term DIV Factor .)
-    >               reduce using rule 82 (Term -> Term DIV Factor .)
-    GE              reduce using rule 82 (Term -> Term DIV Factor .)
-    ,               reduce using rule 82 (Term -> Term DIV Factor .)
-    )               reduce using rule 82 (Term -> Term DIV Factor .)
-    ;               reduce using rule 82 (Term -> Term DIV Factor .)
-    ]               reduce using rule 82 (Term -> Term DIV Factor .)
-    AND             reduce using rule 82 (Term -> Term DIV Factor .)
-    THEN            reduce using rule 82 (Term -> Term DIV Factor .)
-    OR              reduce using rule 82 (Term -> Term DIV Factor .)
-    DO              reduce using rule 82 (Term -> Term DIV Factor .)
-    TO              reduce using rule 82 (Term -> Term DIV Factor .)
-    DOWNTO          reduce using rule 82 (Term -> Term DIV Factor .)
+    *               reduce using rule 95 (Factor -> ( Exp ) .)
+    /               reduce using rule 95 (Factor -> ( Exp ) .)
+    DIV             reduce using rule 95 (Factor -> ( Exp ) .)
+    MOD             reduce using rule 95 (Factor -> ( Exp ) .)
+    +               reduce using rule 95 (Factor -> ( Exp ) .)
+    -               reduce using rule 95 (Factor -> ( Exp ) .)
+    =               reduce using rule 95 (Factor -> ( Exp ) .)
+    NE              reduce using rule 95 (Factor -> ( Exp ) .)
+    <               reduce using rule 95 (Factor -> ( Exp ) .)
+    LE              reduce using rule 95 (Factor -> ( Exp ) .)
+    >               reduce using rule 95 (Factor -> ( Exp ) .)
+    GE              reduce using rule 95 (Factor -> ( Exp ) .)
+    ,               reduce using rule 95 (Factor -> ( Exp ) .)
+    )               reduce using rule 95 (Factor -> ( Exp ) .)
+    ;               reduce using rule 95 (Factor -> ( Exp ) .)
+    ]               reduce using rule 95 (Factor -> ( Exp ) .)
+    AND             reduce using rule 95 (Factor -> ( Exp ) .)
+    THEN            reduce using rule 95 (Factor -> ( Exp ) .)
+    OR              reduce using rule 95 (Factor -> ( Exp ) .)
+    DO              reduce using rule 95 (Factor -> ( Exp ) .)
+    TO              reduce using rule 95 (Factor -> ( Exp ) .)
+    DOWNTO          reduce using rule 95 (Factor -> ( Exp ) .)
 
 
 state 155
 
-    (83) Term -> Term MOD Factor .
+    (92) Factor -> ID [ Exp . ]
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
-    *               reduce using rule 83 (Term -> Term MOD Factor .)
-    /               reduce using rule 83 (Term -> Term MOD Factor .)
-    DIV             reduce using rule 83 (Term -> Term MOD Factor .)
-    MOD             reduce using rule 83 (Term -> Term MOD Factor .)
-    +               reduce using rule 83 (Term -> Term MOD Factor .)
-    -               reduce using rule 83 (Term -> Term MOD Factor .)
-    =               reduce using rule 83 (Term -> Term MOD Factor .)
-    NE              reduce using rule 83 (Term -> Term MOD Factor .)
-    <               reduce using rule 83 (Term -> Term MOD Factor .)
-    LE              reduce using rule 83 (Term -> Term MOD Factor .)
-    >               reduce using rule 83 (Term -> Term MOD Factor .)
-    GE              reduce using rule 83 (Term -> Term MOD Factor .)
-    ,               reduce using rule 83 (Term -> Term MOD Factor .)
-    )               reduce using rule 83 (Term -> Term MOD Factor .)
-    ;               reduce using rule 83 (Term -> Term MOD Factor .)
-    ]               reduce using rule 83 (Term -> Term MOD Factor .)
-    AND             reduce using rule 83 (Term -> Term MOD Factor .)
-    THEN            reduce using rule 83 (Term -> Term MOD Factor .)
-    OR              reduce using rule 83 (Term -> Term MOD Factor .)
-    DO              reduce using rule 83 (Term -> Term MOD Factor .)
-    TO              reduce using rule 83 (Term -> Term MOD Factor .)
-    DOWNTO          reduce using rule 83 (Term -> Term MOD Factor .)
+    ]               shift and go to state 184
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
 state 156
 
-    (91) Factor -> ID [ Exp . ]
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (93) Factor -> ID ( ArgumentList . )
 
-    ]               shift and go to state 180
-    +               shift and go to state 106
-    -               shift and go to state 107
+    )               shift and go to state 185
 
 
 state 157
 
-    (92) Factor -> ID ( ArgumentList . )
+    (96) ArgumentList -> Exp . MoreArguments
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+    (98) MoreArguments -> . , Exp MoreArguments
+    (99) MoreArguments -> .
 
-    )               shift and go to state 181
+    +               shift and go to state 108
+    -               shift and go to state 109
+    ,               shift and go to state 187
+    )               reduce using rule 99 (MoreArguments -> .)
 
+    MoreArguments                  shift and go to state 186
 
 state 158
 
-    (94) ArgumentList -> Exp . MoreArguments
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-    (96) MoreArguments -> . , Exp MoreArguments
-    (97) MoreArguments -> .
+    (81) Term -> Term * Factor .
 
-    +               shift and go to state 106
-    -               shift and go to state 107
-    ,               shift and go to state 183
-    )               reduce using rule 97 (MoreArguments -> .)
+    *               reduce using rule 81 (Term -> Term * Factor .)
+    /               reduce using rule 81 (Term -> Term * Factor .)
+    DIV             reduce using rule 81 (Term -> Term * Factor .)
+    MOD             reduce using rule 81 (Term -> Term * Factor .)
+    +               reduce using rule 81 (Term -> Term * Factor .)
+    -               reduce using rule 81 (Term -> Term * Factor .)
+    =               reduce using rule 81 (Term -> Term * Factor .)
+    NE              reduce using rule 81 (Term -> Term * Factor .)
+    <               reduce using rule 81 (Term -> Term * Factor .)
+    LE              reduce using rule 81 (Term -> Term * Factor .)
+    >               reduce using rule 81 (Term -> Term * Factor .)
+    GE              reduce using rule 81 (Term -> Term * Factor .)
+    ,               reduce using rule 81 (Term -> Term * Factor .)
+    )               reduce using rule 81 (Term -> Term * Factor .)
+    ;               reduce using rule 81 (Term -> Term * Factor .)
+    ]               reduce using rule 81 (Term -> Term * Factor .)
+    AND             reduce using rule 81 (Term -> Term * Factor .)
+    THEN            reduce using rule 81 (Term -> Term * Factor .)
+    OR              reduce using rule 81 (Term -> Term * Factor .)
+    DO              reduce using rule 81 (Term -> Term * Factor .)
+    TO              reduce using rule 81 (Term -> Term * Factor .)
+    DOWNTO          reduce using rule 81 (Term -> Term * Factor .)
 
-    MoreArguments                  shift and go to state 182
 
 state 159
+
+    (82) Term -> Term / Factor .
+
+    *               reduce using rule 82 (Term -> Term / Factor .)
+    /               reduce using rule 82 (Term -> Term / Factor .)
+    DIV             reduce using rule 82 (Term -> Term / Factor .)
+    MOD             reduce using rule 82 (Term -> Term / Factor .)
+    +               reduce using rule 82 (Term -> Term / Factor .)
+    -               reduce using rule 82 (Term -> Term / Factor .)
+    =               reduce using rule 82 (Term -> Term / Factor .)
+    NE              reduce using rule 82 (Term -> Term / Factor .)
+    <               reduce using rule 82 (Term -> Term / Factor .)
+    LE              reduce using rule 82 (Term -> Term / Factor .)
+    >               reduce using rule 82 (Term -> Term / Factor .)
+    GE              reduce using rule 82 (Term -> Term / Factor .)
+    ,               reduce using rule 82 (Term -> Term / Factor .)
+    )               reduce using rule 82 (Term -> Term / Factor .)
+    ;               reduce using rule 82 (Term -> Term / Factor .)
+    ]               reduce using rule 82 (Term -> Term / Factor .)
+    AND             reduce using rule 82 (Term -> Term / Factor .)
+    THEN            reduce using rule 82 (Term -> Term / Factor .)
+    OR              reduce using rule 82 (Term -> Term / Factor .)
+    DO              reduce using rule 82 (Term -> Term / Factor .)
+    TO              reduce using rule 82 (Term -> Term / Factor .)
+    DOWNTO          reduce using rule 82 (Term -> Term / Factor .)
+
+
+state 160
+
+    (83) Term -> Term DIV Factor .
+
+    *               reduce using rule 83 (Term -> Term DIV Factor .)
+    /               reduce using rule 83 (Term -> Term DIV Factor .)
+    DIV             reduce using rule 83 (Term -> Term DIV Factor .)
+    MOD             reduce using rule 83 (Term -> Term DIV Factor .)
+    +               reduce using rule 83 (Term -> Term DIV Factor .)
+    -               reduce using rule 83 (Term -> Term DIV Factor .)
+    =               reduce using rule 83 (Term -> Term DIV Factor .)
+    NE              reduce using rule 83 (Term -> Term DIV Factor .)
+    <               reduce using rule 83 (Term -> Term DIV Factor .)
+    LE              reduce using rule 83 (Term -> Term DIV Factor .)
+    >               reduce using rule 83 (Term -> Term DIV Factor .)
+    GE              reduce using rule 83 (Term -> Term DIV Factor .)
+    ,               reduce using rule 83 (Term -> Term DIV Factor .)
+    )               reduce using rule 83 (Term -> Term DIV Factor .)
+    ;               reduce using rule 83 (Term -> Term DIV Factor .)
+    ]               reduce using rule 83 (Term -> Term DIV Factor .)
+    AND             reduce using rule 83 (Term -> Term DIV Factor .)
+    THEN            reduce using rule 83 (Term -> Term DIV Factor .)
+    OR              reduce using rule 83 (Term -> Term DIV Factor .)
+    DO              reduce using rule 83 (Term -> Term DIV Factor .)
+    TO              reduce using rule 83 (Term -> Term DIV Factor .)
+    DOWNTO          reduce using rule 83 (Term -> Term DIV Factor .)
+
+
+state 161
+
+    (84) Term -> Term MOD Factor .
+
+    *               reduce using rule 84 (Term -> Term MOD Factor .)
+    /               reduce using rule 84 (Term -> Term MOD Factor .)
+    DIV             reduce using rule 84 (Term -> Term MOD Factor .)
+    MOD             reduce using rule 84 (Term -> Term MOD Factor .)
+    +               reduce using rule 84 (Term -> Term MOD Factor .)
+    -               reduce using rule 84 (Term -> Term MOD Factor .)
+    =               reduce using rule 84 (Term -> Term MOD Factor .)
+    NE              reduce using rule 84 (Term -> Term MOD Factor .)
+    <               reduce using rule 84 (Term -> Term MOD Factor .)
+    LE              reduce using rule 84 (Term -> Term MOD Factor .)
+    >               reduce using rule 84 (Term -> Term MOD Factor .)
+    GE              reduce using rule 84 (Term -> Term MOD Factor .)
+    ,               reduce using rule 84 (Term -> Term MOD Factor .)
+    )               reduce using rule 84 (Term -> Term MOD Factor .)
+    ;               reduce using rule 84 (Term -> Term MOD Factor .)
+    ]               reduce using rule 84 (Term -> Term MOD Factor .)
+    AND             reduce using rule 84 (Term -> Term MOD Factor .)
+    THEN            reduce using rule 84 (Term -> Term MOD Factor .)
+    OR              reduce using rule 84 (Term -> Term MOD Factor .)
+    DO              reduce using rule 84 (Term -> Term MOD Factor .)
+    TO              reduce using rule 84 (Term -> Term MOD Factor .)
+    DOWNTO          reduce using rule 84 (Term -> Term MOD Factor .)
+
+
+state 162
+
+    (94) Factor -> LENGTH ( ArgumentList . )
+
+    )               shift and go to state 188
+
+
+state 163
 
     (55) Block -> WHILE Condition DO Block .
 
@@ -3091,7 +3238,7 @@ state 159
     ELSE            reduce using rule 55 (Block -> WHILE Condition DO Block .)
 
 
-state 160
+state 164
 
     (56) Block -> WHILE Condition DO BEGIN . Blocks END ;
     (38) Blocks -> . Block Blocks
@@ -3124,34 +3271,34 @@ state 160
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 184
+    Blocks                         shift and go to state 189
     Block                          shift and go to state 29
 
-state 161
+state 165
 
     (57) Block -> FOR ID ASSIGN Exp . TO Exp DO Block
     (58) Block -> FOR ID ASSIGN Exp . TO Exp DO BEGIN Blocks END ;
     (59) Block -> FOR ID ASSIGN Exp . DOWNTO Exp DO Block
     (60) Block -> FOR ID ASSIGN Exp . DOWNTO Exp DO BEGIN Blocks END ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
-    TO              shift and go to state 185
-    DOWNTO          shift and go to state 186
-    +               shift and go to state 106
-    -               shift and go to state 107
+    TO              shift and go to state 190
+    DOWNTO          shift and go to state 191
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
-state 162
+state 166
 
     (61) Block -> REPEAT Blocks UNTIL Condition . ;
     (62) Condition -> Condition . OR CondTerm
 
-    ;               shift and go to state 187
-    OR              shift and go to state 102
+    ;               shift and go to state 192
+    OR              shift and go to state 104
 
 
-state 163
+state 167
 
     (17) VarList -> IDList : Type ; VarList .
 
@@ -3162,14 +3309,14 @@ state 163
     BEGIN           reduce using rule 17 (VarList -> IDList : Type ; VarList .)
 
 
-state 164
+state 168
 
     (27) Type -> ARRAY [ INT . DOTDOT INT ] OF Type
 
-    DOTDOT          shift and go to state 188
+    DOTDOT          shift and go to state 193
 
 
-state 165
+state 169
 
     (9) ConstDefs -> ID = ConstValue ; ConstDefs .
 
@@ -3180,7 +3327,7 @@ state 165
     BEGIN           reduce using rule 9 (ConstDefs -> ID = ConstValue ; ConstDefs .)
 
 
-state 166
+state 170
 
     (28) Functions -> FUNCTION ID ( Parameters ) : . Type ; FunctionBody
     (22) Type -> . INTEGER
@@ -3190,27 +3337,27 @@ state 166
     (26) Type -> . CHAR
     (27) Type -> . ARRAY [ INT DOTDOT INT ] OF Type
 
-    INTEGER         shift and go to state 71
-    BOOLEAN         shift and go to state 72
-    STRING          shift and go to state 73
-    REALTYPE        shift and go to state 74
-    CHAR            shift and go to state 75
-    ARRAY           shift and go to state 76
+    INTEGER         shift and go to state 72
+    BOOLEAN         shift and go to state 73
+    STRING          shift and go to state 74
+    REALTYPE        shift and go to state 75
+    CHAR            shift and go to state 76
+    ARRAY           shift and go to state 77
 
-    Type                           shift and go to state 189
+    Type                           shift and go to state 194
 
-state 167
+state 171
 
     (34) Parameters -> IDList : Type . MoreParameters
     (36) MoreParameters -> . ; IDList : Type MoreParameters
     (37) MoreParameters -> .
 
-    ;               shift and go to state 191
+    ;               shift and go to state 196
     )               reduce using rule 37 (MoreParameters -> .)
 
-    MoreParameters                 shift and go to state 190
+    MoreParameters                 shift and go to state 195
 
-state 168
+state 172
 
     (29) Functions -> FUNCTION ID : Type ; FunctionBody .
 
@@ -3221,14 +3368,14 @@ state 168
     BEGIN           reduce using rule 29 (Functions -> FUNCTION ID : Type ; FunctionBody .)
 
 
-state 169
+state 173
 
     (30) FunctionBody -> Declarations . BEGIN Blocks END ;
 
-    BEGIN           shift and go to state 192
+    BEGIN           shift and go to state 197
 
 
-state 170
+state 174
 
     (31) Procedures -> PROCEDURE ID ( Parameters ) ; . ProcedureBody
     (33) ProcedureBody -> . Declarations BEGIN Blocks END ;
@@ -3250,21 +3397,21 @@ state 170
     FUNCTION        shift and go to state 13
     PROCEDURE       shift and go to state 14
 
-    ProcedureBody                  shift and go to state 193
-    Declarations                   shift and go to state 89
+    ProcedureBody                  shift and go to state 198
+    Declarations                   shift and go to state 90
     Vars                           shift and go to state 7
     Consts                         shift and go to state 8
     Functions                      shift and go to state 9
     Procedures                     shift and go to state 10
 
-state 171
+state 175
 
     (33) ProcedureBody -> Declarations BEGIN Blocks . END ;
 
-    END             shift and go to state 194
+    END             shift and go to state 199
 
 
-state 172
+state 176
 
     (40) Block -> WRITELN ( WriteList ) ; .
 
@@ -3281,18 +3428,18 @@ state 172
     ELSE            reduce using rule 40 (Block -> WRITELN ( WriteList ) ; .)
 
 
-state 173
+state 177
 
     (43) MoreWriteItems -> , WriteItem . MoreWriteItems
     (43) MoreWriteItems -> . , WriteItem MoreWriteItems
     (44) MoreWriteItems -> .
 
-    ,               shift and go to state 137
+    ,               shift and go to state 140
     )               reduce using rule 44 (MoreWriteItems -> .)
 
-    MoreWriteItems                 shift and go to state 195
+    MoreWriteItems                 shift and go to state 200
 
-state 174
+state 178
 
     (41) Block -> WRITE ( WriteList ) ; .
 
@@ -3309,7 +3456,7 @@ state 174
     ELSE            reduce using rule 41 (Block -> WRITE ( WriteList ) ; .)
 
 
-state 175
+state 179
 
     (47) Block -> READLN ( ID ) ; .
 
@@ -3326,51 +3473,53 @@ state 175
     ELSE            reduce using rule 47 (Block -> READLN ( ID ) ; .)
 
 
-state 176
+state 180
 
     (48) Block -> READLN ( ID [ Exp . ] ) ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
-    ]               shift and go to state 196
-    +               shift and go to state 106
-    -               shift and go to state 107
+    ]               shift and go to state 201
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
-state 177
+state 181
 
     (50) Block -> ID [ Exp ] ASSIGN . Exp ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
 
-    Exp                            shift and go to state 197
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
+    Exp                            shift and go to state 202
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
 
-state 178
+state 182
 
     (52) Block -> IF Condition THEN Block ELSE . Block
     (40) Block -> . WRITELN ( WriteList ) ;
@@ -3400,188 +3549,222 @@ state 178
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Block                          shift and go to state 198
+    Block                          shift and go to state 203
 
-state 179
+state 183
 
     (53) Block -> IF Condition THEN BEGIN Blocks . END ;
     (54) Block -> IF Condition THEN BEGIN Blocks . END ELSE BEGIN Blocks END ;
 
-    END             shift and go to state 199
+    END             shift and go to state 204
 
-
-state 180
-
-    (91) Factor -> ID [ Exp ] .
-
-    *               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    /               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    DIV             reduce using rule 91 (Factor -> ID [ Exp ] .)
-    MOD             reduce using rule 91 (Factor -> ID [ Exp ] .)
-    +               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    -               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    =               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    NE              reduce using rule 91 (Factor -> ID [ Exp ] .)
-    <               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    LE              reduce using rule 91 (Factor -> ID [ Exp ] .)
-    >               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    GE              reduce using rule 91 (Factor -> ID [ Exp ] .)
-    ,               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    )               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    ;               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    ]               reduce using rule 91 (Factor -> ID [ Exp ] .)
-    AND             reduce using rule 91 (Factor -> ID [ Exp ] .)
-    THEN            reduce using rule 91 (Factor -> ID [ Exp ] .)
-    OR              reduce using rule 91 (Factor -> ID [ Exp ] .)
-    DO              reduce using rule 91 (Factor -> ID [ Exp ] .)
-    TO              reduce using rule 91 (Factor -> ID [ Exp ] .)
-    DOWNTO          reduce using rule 91 (Factor -> ID [ Exp ] .)
-
-
-state 181
-
-    (92) Factor -> ID ( ArgumentList ) .
-
-    *               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    /               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    DIV             reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    MOD             reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    +               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    -               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    =               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    NE              reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    <               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    LE              reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    >               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    GE              reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    ,               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    )               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    ;               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    ]               reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    AND             reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    THEN            reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    OR              reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    DO              reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    TO              reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-    DOWNTO          reduce using rule 92 (Factor -> ID ( ArgumentList ) .)
-
-
-state 182
-
-    (94) ArgumentList -> Exp MoreArguments .
-
-    )               reduce using rule 94 (ArgumentList -> Exp MoreArguments .)
-
-
-state 183
-
-    (96) MoreArguments -> , . Exp MoreArguments
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
-
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
-
-    Exp                            shift and go to state 200
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
 
 state 184
 
-    (56) Block -> WHILE Condition DO BEGIN Blocks . END ;
+    (92) Factor -> ID [ Exp ] .
 
-    END             shift and go to state 201
+    *               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    /               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    DIV             reduce using rule 92 (Factor -> ID [ Exp ] .)
+    MOD             reduce using rule 92 (Factor -> ID [ Exp ] .)
+    +               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    -               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    =               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    NE              reduce using rule 92 (Factor -> ID [ Exp ] .)
+    <               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    LE              reduce using rule 92 (Factor -> ID [ Exp ] .)
+    >               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    GE              reduce using rule 92 (Factor -> ID [ Exp ] .)
+    ,               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    )               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    ;               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    ]               reduce using rule 92 (Factor -> ID [ Exp ] .)
+    AND             reduce using rule 92 (Factor -> ID [ Exp ] .)
+    THEN            reduce using rule 92 (Factor -> ID [ Exp ] .)
+    OR              reduce using rule 92 (Factor -> ID [ Exp ] .)
+    DO              reduce using rule 92 (Factor -> ID [ Exp ] .)
+    TO              reduce using rule 92 (Factor -> ID [ Exp ] .)
+    DOWNTO          reduce using rule 92 (Factor -> ID [ Exp ] .)
 
 
 state 185
 
-    (57) Block -> FOR ID ASSIGN Exp TO . Exp DO Block
-    (58) Block -> FOR ID ASSIGN Exp TO . Exp DO BEGIN Blocks END ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (93) Factor -> ID ( ArgumentList ) .
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    *               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    /               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    DIV             reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    MOD             reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    +               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    -               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    =               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    NE              reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    <               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    LE              reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    >               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    GE              reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    ,               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    )               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    ;               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    ]               reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    AND             reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    THEN            reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    OR              reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    DO              reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    TO              reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
+    DOWNTO          reduce using rule 93 (Factor -> ID ( ArgumentList ) .)
 
-    Exp                            shift and go to state 202
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
 
 state 186
 
-    (59) Block -> FOR ID ASSIGN Exp DOWNTO . Exp DO Block
-    (60) Block -> FOR ID ASSIGN Exp DOWNTO . Exp DO BEGIN Blocks END ;
-    (77) Exp -> . Exp + Term
-    (78) Exp -> . Exp - Term
-    (79) Exp -> . Term
-    (80) Term -> . Term * Factor
-    (81) Term -> . Term / Factor
-    (82) Term -> . Term DIV Factor
-    (83) Term -> . Term MOD Factor
-    (84) Term -> . Factor
-    (85) Factor -> . INT
-    (86) Factor -> . REAL
-    (87) Factor -> . STR
-    (88) Factor -> . TRUE
-    (89) Factor -> . FALSE
-    (90) Factor -> . ID
-    (91) Factor -> . ID [ Exp ]
-    (92) Factor -> . ID ( ArgumentList )
-    (93) Factor -> . ( Exp )
+    (96) ArgumentList -> Exp MoreArguments .
 
-    INT             shift and go to state 63
-    REAL            shift and go to state 64
-    STR             shift and go to state 65
-    TRUE            shift and go to state 95
-    FALSE           shift and go to state 96
-    ID              shift and go to state 66
-    (               shift and go to state 90
+    )               reduce using rule 96 (ArgumentList -> Exp MoreArguments .)
 
-    Exp                            shift and go to state 203
-    Term                           shift and go to state 61
-    Factor                         shift and go to state 62
 
 state 187
+
+    (98) MoreArguments -> , . Exp MoreArguments
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
+
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
+
+    Exp                            shift and go to state 205
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
+
+state 188
+
+    (94) Factor -> LENGTH ( ArgumentList ) .
+
+    *               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    /               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    DIV             reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    MOD             reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    +               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    -               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    =               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    NE              reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    <               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    LE              reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    >               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    GE              reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    ,               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    )               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    ;               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    ]               reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    AND             reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    THEN            reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    OR              reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    DO              reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    TO              reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+    DOWNTO          reduce using rule 94 (Factor -> LENGTH ( ArgumentList ) .)
+
+
+state 189
+
+    (56) Block -> WHILE Condition DO BEGIN Blocks . END ;
+
+    END             shift and go to state 206
+
+
+state 190
+
+    (57) Block -> FOR ID ASSIGN Exp TO . Exp DO Block
+    (58) Block -> FOR ID ASSIGN Exp TO . Exp DO BEGIN Blocks END ;
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
+
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
+
+    Exp                            shift and go to state 207
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
+
+state 191
+
+    (59) Block -> FOR ID ASSIGN Exp DOWNTO . Exp DO Block
+    (60) Block -> FOR ID ASSIGN Exp DOWNTO . Exp DO BEGIN Blocks END ;
+    (78) Exp -> . Exp + Term
+    (79) Exp -> . Exp - Term
+    (80) Exp -> . Term
+    (81) Term -> . Term * Factor
+    (82) Term -> . Term / Factor
+    (83) Term -> . Term DIV Factor
+    (84) Term -> . Term MOD Factor
+    (85) Term -> . Factor
+    (86) Factor -> . INT
+    (87) Factor -> . REAL
+    (88) Factor -> . STR
+    (89) Factor -> . TRUE
+    (90) Factor -> . FALSE
+    (91) Factor -> . ID
+    (92) Factor -> . ID [ Exp ]
+    (93) Factor -> . ID ( ArgumentList )
+    (94) Factor -> . LENGTH ( ArgumentList )
+    (95) Factor -> . ( Exp )
+
+    INT             shift and go to state 64
+    REAL            shift and go to state 65
+    STR             shift and go to state 66
+    TRUE            shift and go to state 96
+    FALSE           shift and go to state 97
+    ID              shift and go to state 98
+    LENGTH          shift and go to state 67
+    (               shift and go to state 91
+
+    Exp                            shift and go to state 208
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 63
+
+state 192
 
     (61) Block -> REPEAT Blocks UNTIL Condition ; .
 
@@ -3598,37 +3781,37 @@ state 187
     ELSE            reduce using rule 61 (Block -> REPEAT Blocks UNTIL Condition ; .)
 
 
-state 188
+state 193
 
     (27) Type -> ARRAY [ INT DOTDOT . INT ] OF Type
 
-    INT             shift and go to state 204
+    INT             shift and go to state 209
 
 
-state 189
+state 194
 
     (28) Functions -> FUNCTION ID ( Parameters ) : Type . ; FunctionBody
 
-    ;               shift and go to state 205
+    ;               shift and go to state 210
 
 
-state 190
+state 195
 
     (34) Parameters -> IDList : Type MoreParameters .
 
     )               reduce using rule 34 (Parameters -> IDList : Type MoreParameters .)
 
 
-state 191
+state 196
 
     (36) MoreParameters -> ; . IDList : Type MoreParameters
     (19) IDList -> . ID RestoIDs
 
     ID              shift and go to state 23
 
-    IDList                         shift and go to state 206
+    IDList                         shift and go to state 211
 
-state 192
+state 197
 
     (30) FunctionBody -> Declarations BEGIN . Blocks END ;
     (38) Blocks -> . Block Blocks
@@ -3661,10 +3844,10 @@ state 192
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 207
+    Blocks                         shift and go to state 212
     Block                          shift and go to state 29
 
-state 193
+state 198
 
     (31) Procedures -> PROCEDURE ID ( Parameters ) ; ProcedureBody .
 
@@ -3675,39 +3858,39 @@ state 193
     BEGIN           reduce using rule 31 (Procedures -> PROCEDURE ID ( Parameters ) ; ProcedureBody .)
 
 
-state 194
+state 199
 
     (33) ProcedureBody -> Declarations BEGIN Blocks END . ;
 
-    ;               shift and go to state 208
+    ;               shift and go to state 213
 
 
-state 195
+state 200
 
     (43) MoreWriteItems -> , WriteItem MoreWriteItems .
 
     )               reduce using rule 43 (MoreWriteItems -> , WriteItem MoreWriteItems .)
 
 
-state 196
+state 201
 
     (48) Block -> READLN ( ID [ Exp ] . ) ;
 
-    )               shift and go to state 209
+    )               shift and go to state 214
 
 
-state 197
+state 202
 
     (50) Block -> ID [ Exp ] ASSIGN Exp . ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
 
-    ;               shift and go to state 210
-    +               shift and go to state 106
-    -               shift and go to state 107
+    ;               shift and go to state 215
+    +               shift and go to state 108
+    -               shift and go to state 109
 
 
-state 198
+state 203
 
     (52) Block -> IF Condition THEN Block ELSE Block .
 
@@ -3724,69 +3907,69 @@ state 198
     ELSE            reduce using rule 52 (Block -> IF Condition THEN Block ELSE Block .)
 
 
-state 199
+state 204
 
     (53) Block -> IF Condition THEN BEGIN Blocks END . ;
     (54) Block -> IF Condition THEN BEGIN Blocks END . ELSE BEGIN Blocks END ;
 
-    ;               shift and go to state 211
-    ELSE            shift and go to state 212
-
-
-state 200
-
-    (96) MoreArguments -> , Exp . MoreArguments
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-    (96) MoreArguments -> . , Exp MoreArguments
-    (97) MoreArguments -> .
-
-    +               shift and go to state 106
-    -               shift and go to state 107
-    ,               shift and go to state 183
-    )               reduce using rule 97 (MoreArguments -> .)
-
-    MoreArguments                  shift and go to state 213
-
-state 201
-
-    (56) Block -> WHILE Condition DO BEGIN Blocks END . ;
-
-    ;               shift and go to state 214
-
-
-state 202
-
-    (57) Block -> FOR ID ASSIGN Exp TO Exp . DO Block
-    (58) Block -> FOR ID ASSIGN Exp TO Exp . DO BEGIN Blocks END ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-
-    DO              shift and go to state 215
-    +               shift and go to state 106
-    -               shift and go to state 107
-
-
-state 203
-
-    (59) Block -> FOR ID ASSIGN Exp DOWNTO Exp . DO Block
-    (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp . DO BEGIN Blocks END ;
-    (77) Exp -> Exp . + Term
-    (78) Exp -> Exp . - Term
-
-    DO              shift and go to state 216
-    +               shift and go to state 106
-    -               shift and go to state 107
-
-
-state 204
-
-    (27) Type -> ARRAY [ INT DOTDOT INT . ] OF Type
-
-    ]               shift and go to state 217
+    ;               shift and go to state 216
+    ELSE            shift and go to state 217
 
 
 state 205
+
+    (98) MoreArguments -> , Exp . MoreArguments
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+    (98) MoreArguments -> . , Exp MoreArguments
+    (99) MoreArguments -> .
+
+    +               shift and go to state 108
+    -               shift and go to state 109
+    ,               shift and go to state 187
+    )               reduce using rule 99 (MoreArguments -> .)
+
+    MoreArguments                  shift and go to state 218
+
+state 206
+
+    (56) Block -> WHILE Condition DO BEGIN Blocks END . ;
+
+    ;               shift and go to state 219
+
+
+state 207
+
+    (57) Block -> FOR ID ASSIGN Exp TO Exp . DO Block
+    (58) Block -> FOR ID ASSIGN Exp TO Exp . DO BEGIN Blocks END ;
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+
+    DO              shift and go to state 220
+    +               shift and go to state 108
+    -               shift and go to state 109
+
+
+state 208
+
+    (59) Block -> FOR ID ASSIGN Exp DOWNTO Exp . DO Block
+    (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp . DO BEGIN Blocks END ;
+    (78) Exp -> Exp . + Term
+    (79) Exp -> Exp . - Term
+
+    DO              shift and go to state 221
+    +               shift and go to state 108
+    -               shift and go to state 109
+
+
+state 209
+
+    (27) Type -> ARRAY [ INT DOTDOT INT . ] OF Type
+
+    ]               shift and go to state 222
+
+
+state 210
 
     (28) Functions -> FUNCTION ID ( Parameters ) : Type ; . FunctionBody
     (30) FunctionBody -> . Declarations BEGIN Blocks END ;
@@ -3808,28 +3991,28 @@ state 205
     FUNCTION        shift and go to state 13
     PROCEDURE       shift and go to state 14
 
-    FunctionBody                   shift and go to state 218
-    Declarations                   shift and go to state 169
+    FunctionBody                   shift and go to state 223
+    Declarations                   shift and go to state 173
     Vars                           shift and go to state 7
     Consts                         shift and go to state 8
     Functions                      shift and go to state 9
     Procedures                     shift and go to state 10
 
-state 206
+state 211
 
     (36) MoreParameters -> ; IDList . : Type MoreParameters
 
-    :               shift and go to state 219
+    :               shift and go to state 224
 
 
-state 207
+state 212
 
     (30) FunctionBody -> Declarations BEGIN Blocks . END ;
 
-    END             shift and go to state 220
+    END             shift and go to state 225
 
 
-state 208
+state 213
 
     (33) ProcedureBody -> Declarations BEGIN Blocks END ; .
 
@@ -3840,14 +4023,14 @@ state 208
     BEGIN           reduce using rule 33 (ProcedureBody -> Declarations BEGIN Blocks END ; .)
 
 
-state 209
+state 214
 
     (48) Block -> READLN ( ID [ Exp ] ) . ;
 
-    ;               shift and go to state 221
+    ;               shift and go to state 226
 
 
-state 210
+state 215
 
     (50) Block -> ID [ Exp ] ASSIGN Exp ; .
 
@@ -3864,7 +4047,7 @@ state 210
     ELSE            reduce using rule 50 (Block -> ID [ Exp ] ASSIGN Exp ; .)
 
 
-state 211
+state 216
 
     (53) Block -> IF Condition THEN BEGIN Blocks END ; .
 
@@ -3881,21 +4064,21 @@ state 211
     ELSE            reduce using rule 53 (Block -> IF Condition THEN BEGIN Blocks END ; .)
 
 
-state 212
+state 217
 
     (54) Block -> IF Condition THEN BEGIN Blocks END ELSE . BEGIN Blocks END ;
 
-    BEGIN           shift and go to state 222
+    BEGIN           shift and go to state 227
 
 
-state 213
+state 218
 
-    (96) MoreArguments -> , Exp MoreArguments .
+    (98) MoreArguments -> , Exp MoreArguments .
 
-    )               reduce using rule 96 (MoreArguments -> , Exp MoreArguments .)
+    )               reduce using rule 98 (MoreArguments -> , Exp MoreArguments .)
 
 
-state 214
+state 219
 
     (56) Block -> WHILE Condition DO BEGIN Blocks END ; .
 
@@ -3912,7 +4095,7 @@ state 214
     ELSE            reduce using rule 56 (Block -> WHILE Condition DO BEGIN Blocks END ; .)
 
 
-state 215
+state 220
 
     (57) Block -> FOR ID ASSIGN Exp TO Exp DO . Block
     (58) Block -> FOR ID ASSIGN Exp TO Exp DO . BEGIN Blocks END ;
@@ -3934,7 +4117,7 @@ state 215
     (60) Block -> . FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ;
     (61) Block -> . REPEAT Blocks UNTIL Condition ;
 
-    BEGIN           shift and go to state 224
+    BEGIN           shift and go to state 229
     WRITELN         shift and go to state 30
     WRITE           shift and go to state 31
     READLN          shift and go to state 32
@@ -3944,9 +4127,9 @@ state 215
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Block                          shift and go to state 223
+    Block                          shift and go to state 228
 
-state 216
+state 221
 
     (59) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO . Block
     (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO . BEGIN Blocks END ;
@@ -3968,7 +4151,7 @@ state 216
     (60) Block -> . FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ;
     (61) Block -> . REPEAT Blocks UNTIL Condition ;
 
-    BEGIN           shift and go to state 226
+    BEGIN           shift and go to state 231
     WRITELN         shift and go to state 30
     WRITE           shift and go to state 31
     READLN          shift and go to state 32
@@ -3978,16 +4161,16 @@ state 216
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Block                          shift and go to state 225
+    Block                          shift and go to state 230
 
-state 217
+state 222
 
     (27) Type -> ARRAY [ INT DOTDOT INT ] . OF Type
 
-    OF              shift and go to state 227
+    OF              shift and go to state 232
 
 
-state 218
+state 223
 
     (28) Functions -> FUNCTION ID ( Parameters ) : Type ; FunctionBody .
 
@@ -3998,7 +4181,7 @@ state 218
     BEGIN           reduce using rule 28 (Functions -> FUNCTION ID ( Parameters ) : Type ; FunctionBody .)
 
 
-state 219
+state 224
 
     (36) MoreParameters -> ; IDList : . Type MoreParameters
     (22) Type -> . INTEGER
@@ -4008,23 +4191,23 @@ state 219
     (26) Type -> . CHAR
     (27) Type -> . ARRAY [ INT DOTDOT INT ] OF Type
 
-    INTEGER         shift and go to state 71
-    BOOLEAN         shift and go to state 72
-    STRING          shift and go to state 73
-    REALTYPE        shift and go to state 74
-    CHAR            shift and go to state 75
-    ARRAY           shift and go to state 76
+    INTEGER         shift and go to state 72
+    BOOLEAN         shift and go to state 73
+    STRING          shift and go to state 74
+    REALTYPE        shift and go to state 75
+    CHAR            shift and go to state 76
+    ARRAY           shift and go to state 77
 
-    Type                           shift and go to state 228
+    Type                           shift and go to state 233
 
-state 220
+state 225
 
     (30) FunctionBody -> Declarations BEGIN Blocks END . ;
 
-    ;               shift and go to state 229
+    ;               shift and go to state 234
 
 
-state 221
+state 226
 
     (48) Block -> READLN ( ID [ Exp ] ) ; .
 
@@ -4041,7 +4224,7 @@ state 221
     ELSE            reduce using rule 48 (Block -> READLN ( ID [ Exp ] ) ; .)
 
 
-state 222
+state 227
 
     (54) Block -> IF Condition THEN BEGIN Blocks END ELSE BEGIN . Blocks END ;
     (38) Blocks -> . Block Blocks
@@ -4074,10 +4257,10 @@ state 222
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 230
+    Blocks                         shift and go to state 235
     Block                          shift and go to state 29
 
-state 223
+state 228
 
     (57) Block -> FOR ID ASSIGN Exp TO Exp DO Block .
 
@@ -4094,7 +4277,7 @@ state 223
     ELSE            reduce using rule 57 (Block -> FOR ID ASSIGN Exp TO Exp DO Block .)
 
 
-state 224
+state 229
 
     (58) Block -> FOR ID ASSIGN Exp TO Exp DO BEGIN . Blocks END ;
     (38) Blocks -> . Block Blocks
@@ -4127,10 +4310,10 @@ state 224
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 231
+    Blocks                         shift and go to state 236
     Block                          shift and go to state 29
 
-state 225
+state 230
 
     (59) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO Block .
 
@@ -4147,7 +4330,7 @@ state 225
     ELSE            reduce using rule 59 (Block -> FOR ID ASSIGN Exp DOWNTO Exp DO Block .)
 
 
-state 226
+state 231
 
     (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN . Blocks END ;
     (38) Blocks -> . Block Blocks
@@ -4180,10 +4363,10 @@ state 226
     FOR             shift and go to state 36
     REPEAT          shift and go to state 37
 
-    Blocks                         shift and go to state 232
+    Blocks                         shift and go to state 237
     Block                          shift and go to state 29
 
-state 227
+state 232
 
     (27) Type -> ARRAY [ INT DOTDOT INT ] OF . Type
     (22) Type -> . INTEGER
@@ -4193,27 +4376,27 @@ state 227
     (26) Type -> . CHAR
     (27) Type -> . ARRAY [ INT DOTDOT INT ] OF Type
 
-    INTEGER         shift and go to state 71
-    BOOLEAN         shift and go to state 72
-    STRING          shift and go to state 73
-    REALTYPE        shift and go to state 74
-    CHAR            shift and go to state 75
-    ARRAY           shift and go to state 76
+    INTEGER         shift and go to state 72
+    BOOLEAN         shift and go to state 73
+    STRING          shift and go to state 74
+    REALTYPE        shift and go to state 75
+    CHAR            shift and go to state 76
+    ARRAY           shift and go to state 77
 
-    Type                           shift and go to state 233
+    Type                           shift and go to state 238
 
-state 228
+state 233
 
     (36) MoreParameters -> ; IDList : Type . MoreParameters
     (36) MoreParameters -> . ; IDList : Type MoreParameters
     (37) MoreParameters -> .
 
-    ;               shift and go to state 191
+    ;               shift and go to state 196
     )               reduce using rule 37 (MoreParameters -> .)
 
-    MoreParameters                 shift and go to state 234
+    MoreParameters                 shift and go to state 239
 
-state 229
+state 234
 
     (30) FunctionBody -> Declarations BEGIN Blocks END ; .
 
@@ -4224,28 +4407,28 @@ state 229
     BEGIN           reduce using rule 30 (FunctionBody -> Declarations BEGIN Blocks END ; .)
 
 
-state 230
+state 235
 
     (54) Block -> IF Condition THEN BEGIN Blocks END ELSE BEGIN Blocks . END ;
 
-    END             shift and go to state 235
+    END             shift and go to state 240
 
 
-state 231
+state 236
 
     (58) Block -> FOR ID ASSIGN Exp TO Exp DO BEGIN Blocks . END ;
 
-    END             shift and go to state 236
+    END             shift and go to state 241
 
 
-state 232
+state 237
 
     (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks . END ;
 
-    END             shift and go to state 237
+    END             shift and go to state 242
 
 
-state 233
+state 238
 
     (27) Type -> ARRAY [ INT DOTDOT INT ] OF Type .
 
@@ -4253,35 +4436,35 @@ state 233
     )               reduce using rule 27 (Type -> ARRAY [ INT DOTDOT INT ] OF Type .)
 
 
-state 234
+state 239
 
     (36) MoreParameters -> ; IDList : Type MoreParameters .
 
     )               reduce using rule 36 (MoreParameters -> ; IDList : Type MoreParameters .)
 
 
-state 235
+state 240
 
     (54) Block -> IF Condition THEN BEGIN Blocks END ELSE BEGIN Blocks END . ;
 
-    ;               shift and go to state 238
+    ;               shift and go to state 243
 
 
-state 236
+state 241
 
     (58) Block -> FOR ID ASSIGN Exp TO Exp DO BEGIN Blocks END . ;
 
-    ;               shift and go to state 239
+    ;               shift and go to state 244
 
 
-state 237
+state 242
 
     (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END . ;
 
-    ;               shift and go to state 240
+    ;               shift and go to state 245
 
 
-state 238
+state 243
 
     (54) Block -> IF Condition THEN BEGIN Blocks END ELSE BEGIN Blocks END ; .
 
@@ -4298,7 +4481,7 @@ state 238
     ELSE            reduce using rule 54 (Block -> IF Condition THEN BEGIN Blocks END ELSE BEGIN Blocks END ; .)
 
 
-state 239
+state 244
 
     (58) Block -> FOR ID ASSIGN Exp TO Exp DO BEGIN Blocks END ; .
 
@@ -4315,7 +4498,7 @@ state 239
     ELSE            reduce using rule 58 (Block -> FOR ID ASSIGN Exp TO Exp DO BEGIN Blocks END ; .)
 
 
-state 240
+state 245
 
     (60) Block -> FOR ID ASSIGN Exp DOWNTO Exp DO BEGIN Blocks END ; .
 
@@ -4334,10 +4517,12 @@ state 240
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ELSE in state 143 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 146 resolved as shift
 WARNING: reduce/reduce conflict in state 59 resolved using rule (CondFactor -> TRUE)
 WARNING: rejected rule (Factor -> TRUE) in state 59
 WARNING: reduce/reduce conflict in state 60 resolved using rule (CondFactor -> FALSE)
 WARNING: rejected rule (Factor -> FALSE) in state 60
-WARNING: reduce/reduce conflict in state 93 resolved using rule (WriteItem -> STR)
-WARNING: rejected rule (Factor -> STR) in state 93
+WARNING: reduce/reduce conflict in state 61 resolved using rule (CondFactor -> ID)
+WARNING: rejected rule (Factor -> ID) in state 61
+WARNING: reduce/reduce conflict in state 94 resolved using rule (WriteItem -> STR)
+WARNING: rejected rule (Factor -> STR) in state 94

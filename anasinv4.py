@@ -5,6 +5,8 @@ from analexerv4 import *
 COMPILADOR PASCAL CORRIGIDO
 - Usa PUSHN para inicialização de arrays
 - parser.arrays guarda posições iniciais dos arrays
+- Suporta parâmetros de função
+- Acesso dinâmico a arrays
 """
 
 def p_Program(t):
@@ -36,14 +38,13 @@ def p_Declarations_vazio(t):
     r'Declarations : '
     t[0] = []
 
-# CONSTANTES - versão simples (substitui valores)
+# CONSTANTES
 def p_Consts(t):
     r'Consts : CONST ConstDefs'
-    t[0] = []  # Constantes não geram código
+    t[0] = []
 
 def p_ConstDefs(t):
     r'ConstDefs : ID "=" ConstValue ";" ConstDefs'
-    # Guarda o valor da constante
     parser.constants[t[1]] = t[3]
     t[0] = []
 
@@ -82,18 +83,16 @@ def p_VarList(t):
     for var_name in t[1]:
         var_type = t[3]
         
-        # Arrays
         if isinstance(var_type, tuple) and var_type[0] == 'array':
             array_size = var_type[2] - var_type[1] + 1
             element_type = var_type[3]
-            #posicao inicial do array
             parser.arrays[var_name] = parser.varcount
+            parser.array_bounds[var_name] = (var_type[1], var_type[2])
             parser.var[var_name] = parser.varcount
             parser.vartype[var_name] = var_type
             pushcode.append(f'pushn {array_size}\n')
             parser.varcount += array_size
         else:
-            # Variável simples
             parser.var[var_name] = parser.varcount
             parser.vartype[var_name] = var_type
             pushcode.append(parser.pushdict.get(var_type, 'pushi 0\n'))
@@ -142,7 +141,7 @@ def p_Type_array(t):
     r'Type : ARRAY "[" INT DOTDOT INT "]" OF Type'
     t[0] = ('array', t[3], t[5], t[8])
 
-# FUNÇÕES - versão simplificada (não suporta variáveis locais bem)
+# FUNÇÕES
 def p_Functions(t):
     r'Functions : FUNCTION ID "(" Parameters ")" ":" Type ";" FunctionBody'
     func_name = t[2]
@@ -150,7 +149,6 @@ def p_Functions(t):
     
     parser.functions[func_name] = func_label
     
-    # Gera código
     code = [f'jump end{func_label}\n']
     code.append(f'{func_label}:\n')
     code.extend(t[9])
@@ -215,7 +213,14 @@ def p_ProcedureBody(t):
 
 def p_Parameters(t):
     r'Parameters : IDList ":" Type MoreParameters'
-    t[0] = []
+    # Guardar parâmetros como variáveis locais
+    for param_name in t[1]:
+        parser.var[param_name] = parser.varcount
+        parser.vartype[param_name] = t[3]
+        if t[3] == 'string':
+            parser.string_params.add(param_name)
+        parser.varcount += 1
+    t[0] = t[4]
 
 def p_Parameters_vazio(t):
     r'Parameters : '
@@ -223,7 +228,13 @@ def p_Parameters_vazio(t):
 
 def p_MoreParameters(t):
     r'MoreParameters : ";" IDList ":" Type MoreParameters'
-    t[0] = []
+    for param_name in t[2]:
+        parser.var[param_name] = parser.varcount
+        parser.vartype[param_name] = t[4]
+        if t[4] == 'string':
+            parser.string_params.add(param_name)
+        parser.varcount += 1
+    t[0] = t[5]
 
 def p_MoreParameters_vazio(t):
     r'MoreParameters : '
@@ -284,43 +295,54 @@ def p_Block_readln(t):
         t[0] = []
 
 def p_Block_readln_array(t):
-    r'Block : READLN "(" ID "[" Factor "]" ")" ";"'
+    r'Block : READLN "(" ID "[" Exp "]" ")" ";"'
     if t[3] in parser.arrays:
-        resto = "read\n"
+        array_base = parser.arrays[t[3]]
         array_info = parser.vartype[t[3]]
+        start_index = array_info[1]
         var_type = array_info[3]
+        
+        read_code = "read\n"
         if var_type == "integer":
-            resto += "atoi\n"
-        elif var_type =="real":
-            resto += "atof\n"
-        else:
-            pass
-        t[0] = [resto + f'storeg {parser.arrays[t[3]] + int(t[5][0][5:])}\n']
+            read_code += "atoi\n"
+        elif var_type == "real":
+            read_code += "atof\n"
+        
+        # Código para índice dinâmico
+        t[0] = t[5] + [
+            f'pushi {start_index}\n',
+            'sub\n',
+            f'pushi {array_base}\n',
+            'add\n',
+            read_code,
+            'storen\n'
+        ]
     else:
         print(f"Erro: array '{t[3]}' não declarado")
         t[0] = []
 
 def p_Block_ass(t):
     r'Block : ID ASSIGN Exp ";"'
-    if t[1] in parser.var and t[1] not in parser.arrays:  # Não é array
+    if t[1] in parser.var and t[1] not in parser.arrays:
         var_offset = parser.var[t[1]]
         t[0] = t[3] + [f'storeg {var_offset}\n']
     else:
-        # Retorno de função ou array
         t[0] = t[3] + ['storel 0\n']
 
 def p_Block_ass_array(t):
-    r'Block : ID "[" Factor "]" ASSIGN Exp ";"'
+    r'Block : ID "[" Exp "]" ASSIGN Exp ";"'
     if t[1] in parser.arrays:
-        # Extrai o valor do índice
-        index_str = t[3][0].strip()
-        if index_str.startswith('pushi '):
-            index_value = int(index_str[6:])
-            array_base = parser.arrays[t[1]]
-            t[0] = t[6] + [f'storeg {array_base + index_value}\n']
-        else:
-            print(f"Erro: índice de array deve ser constante")
-            t[0] = []
+        array_base = parser.arrays[t[1]]
+        array_info = parser.vartype[t[1]]
+        start_index = array_info[1]
+        
+        # Código para índice dinâmico
+        t[0] = t[3] + [
+            f'pushi {start_index}\n',
+            'sub\n',
+            f'pushi {array_base}\n',
+            'add\n'
+        ] + t[6] + ['storen\n']
     else:
         print(f"Erro: array '{t[1]}' não declarado")
         t[0] = []
@@ -351,7 +373,6 @@ def p_Block_if_then_else_begin(t):
     label_end = f'label{parser.labelcount + 1}'
     parser.labelcount += 2
     t[0] = t[2] + [f'jz {label_else}\n'] + t[5] + [f'jump {label_end}\n', f'{label_else}:\n'] + t[9] + [f'{label_end}:\n']
-
 
 # WHILE
 def p_Block_while(t):
@@ -547,7 +568,7 @@ def p_Term_factor(t):
     r'Term : Factor'
     t[0] = t[1]
 
-# FATORES - RESTAURADO DO CÓDIGO ANTIGO
+# FATORES
 def p_Factor_integer(t):
     r'Factor : INT'
     t[0] = [f'pushi {t[1]}\n']
@@ -570,7 +591,6 @@ def p_Factor_false(t):
 
 def p_Factor_id(t):
     r'Factor : ID'
-    # Verifica se é constante
     if t[1] in parser.constants:
         const_type, const_value = parser.constants[t[1]]
         if const_type == 'int':
@@ -581,8 +601,10 @@ def p_Factor_id(t):
             t[0] = [f'pushs "{const_value}"\n']
         elif const_type == 'bool':
             t[0] = [f'pushi {1 if const_value else 0}\n']
-    # Verifica se é variável simples (não array)
     elif t[1] in parser.var and t[1] not in parser.arrays:
+        var_offset = parser.var[t[1]]
+        t[0] = [f'pushg {var_offset}\n']
+    elif t[1] in parser.string_params:
         var_offset = parser.var[t[1]]
         t[0] = [f'pushg {var_offset}\n']
     else:
@@ -590,11 +612,25 @@ def p_Factor_id(t):
         t[0] = []
 
 def p_Factor_array_access(t):
-    r'Factor : ID "[" Factor "]"'
+    r'Factor : ID "[" Exp "]"'
     if t[1] in parser.arrays:
-        t[0] = [f'pushg {parser.arrays[t[1]] + int(t[3][0][5:])}\n']
+        array_base = parser.arrays[t[1]]
+        array_info = parser.vartype[t[1]]
+        start_index = array_info[1]
+        
+        t[0] = t[3] + [
+            f'pushi {start_index}\n',
+            'sub\n',
+            f'pushi {array_base}\n',
+            'add\n',
+            'loadn\n'
+        ]
+    elif t[1] in parser.string_params:
+        # Acesso a caractere de string (parâmetro)
+        var_offset = parser.var[t[1]]
+        t[0] = [f'pushg {var_offset}\n'] + t[3] + ['pushi 1\nsub\n', 'stri\n']
     else:
-        print(f"Erro: array '{t[1]}' não declarado")
+        print(f"Erro: array/string '{t[1]}' não declarado")
         t[0] = []
 
 def p_Factor_function_call(t):
@@ -607,6 +643,10 @@ def p_Factor_function_call(t):
     else:
         print(f"Erro: função '{t[1]}' não declarada")
         t[0] = []
+
+def p_Factor_length_call(t):
+    r'Factor : LENGTH "(" ArgumentList ")"'
+    t[0] = t[3] + ['strlen\n']
 
 def p_Factor_paren(t):
     r'Factor : "(" Exp ")"'
@@ -640,14 +680,15 @@ def p_error(t):
 lexer.lineno = 1
 parser = yacc.yacc()
 
-# Dicionários
-parser.var = {}           # {nome: offset} - para todas as variáveis
-parser.arrays = {}        # {nome_array: offset_inicial} - apenas para arrays
-parser.vartype = {}       # {nome: tipo}
-parser.constants = {}     # {nome: (tipo, valor)}
-parser.functions = {}     # {nome: label}
-parser.varcount = 0       # Contador de variáveis
-parser.labelcount = 0     # Contador de labels
+parser.var = {}
+parser.arrays = {}
+parser.array_bounds = {}
+parser.vartype = {}
+parser.constants = {}
+parser.functions = {}
+parser.string_params = set()
+parser.varcount = 0
+parser.labelcount = 0
 
 parser.pushdict = {
     'integer': 'pushi 0\n',
@@ -754,8 +795,10 @@ if __name__ == "__main__":
     print("\n=== Teste Exemplo 2 ===")
     parser.var = {}
     parser.arrays = {}
+    parser.array_bounds = {}
     parser.vartype = {}
     parser.constants = {}
+    parser.string_params = set()
     parser.varcount = 0
     parser.labelcount = 0
     result = parser.parse(ex2)
@@ -765,8 +808,10 @@ if __name__ == "__main__":
     print("\n=== Teste Exemplo 3 (While complexo) ===")
     parser.var = {}
     parser.arrays = {}
+    parser.array_bounds = {}
     parser.vartype = {}
     parser.constants = {}
+    parser.string_params = set()
     parser.varcount = 0
     parser.labelcount = 0
     result = parser.parse(ex3)
@@ -776,10 +821,26 @@ if __name__ == "__main__":
     print("\n=== Teste Exemplo 4 (Arrays) ===")
     parser.var = {}
     parser.arrays = {}
+    parser.array_bounds = {}
     parser.vartype = {}
     parser.constants = {}
+    parser.string_params = set()
     parser.varcount = 0
     parser.labelcount = 0
     result = parser.parse(ex4)
+    if result:
+        print("".join(result))
+    
+    print("\n=== Teste Exemplo 5 (Função com Strings) ===")
+    parser.var = {}
+    parser.arrays = {}
+    parser.array_bounds = {}
+    parser.vartype = {}
+    parser.constants = {}
+    parser.functions = {}
+    parser.string_params = set()
+    parser.varcount = 0
+    parser.labelcount = 0
+    result = parser.parse(ex5)
     if result:
         print("".join(result))
