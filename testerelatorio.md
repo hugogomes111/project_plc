@@ -1,4 +1,3 @@
-
 # Processamento de Linguagens e Compiladores
 
 ## Construção de um compilador em Pascal
@@ -21,7 +20,7 @@ O analisador léxico (lexer) é então a primeira etapa do processo de compilaç
 O lexer desenvolvido neste projeto foi implementado em Python, recorrendo à biblioteca PLY (Python Lex-Yacc). 
 
 O objetivo deste componente é converter o texto bruto do programa numa sequência de símbolos terminais (tokens) compreensíveis pelo parser. São identificados elementos como palavras reservadas, identificadores, operadores, literais e símbolos especiais, enquanto são descartados comentários e espaços em branco. 
-### 1.1. Tokens
+## 1.1. Tokens
 Começamos por definir todos os tokens relevantes, incluindo palavras reservadas, identificadores, literais numéricos (inteiros e reais), valores booleanos, strings, caracteres, operadores relacionais, símbolos especiais (como atribuição e intervalos) e comentários. 
 
 ```python
@@ -38,3 +37,291 @@ tokens = (
     'ID', 'INT', 'BOOLEAN', 'REAL', 'STR', 'COMMENT'
 )
 ```
+
+As palavras reservadas são identificadas através de uma consulta a um dicionário específico, onde o texto capturado é convertido para minúsculas, garantindo assim a insensibilidade a maiúsculas/minúsculas (case-insensitivity) típica do Pascal. 
+
+```python
+def t_ID(t):
+    r'[a-zA-Z][a-zA-Z0-9]*'
+    t.type = reserved.get(t.value.lower(), 'ID') 
+    return t
+```
+
+Os identificadores são reconhecidos por uma expressão regular que aceita uma letra inicial seguida de letras ou dígitos (alfanuméricos), sendo posteriormente verificados contra a lista de palavras reservadas. 
+
+Os números são divididos em duas categorias: inteiros, formados por sequências de dígitos, e reais, que suportam ponto decimal e notação científica. 
+
+```python
+def t_REAL(t):
+    r'\d+\.\d+([eE][+-]?\d+)?|\.\d+([eE][+-]?\d+)?|\d+[eE][+-]?\d+'
+    t.value = float(t.value)
+    return t
+```
+
+O reconhecimento de strings utiliza exclusivamente aspas simples (plicas), conforme o padrão Pascal, incluindo o tratamento de aspas escapadas no interior da cadeia. 
+
+```python
+def t_STR(t):
+    r"'(?:''|[^'])*'"
+    t.value = t.value[1:-1].replace("''", "'")
+    return t
+```
+
+Definimos tokens específicos para operadores compostos (como :=, <=, <>, ..), enquanto os operadores de um só caractere (como +, -, ;) são tratados como literais diretos. 
+
+Os comentários são ignorados pelo lexer e podem ser escritos em dois dos formatos aceites em Pascal: blocos entre chavetas { ... } e blocos entre (* ... *). 
+
+Espaços e tabulações são ignorados, sendo as quebras de linha processadas apenas para incrementar o contador de linhas.  
+
+```python
+def t_COMMENT(t):
+    r'\(\*[^*]*\*+(?:[^*)*][^*]*\*+)*\)|\{[^}]*\}'
+    t.lexer.lineno += t.value.count('\n')
+    pass
+
+t_ignore = ' \t'
+```
+
+Sempre que um carácter ilegal é detetado, o analisador emite uma mensagem de erro indicando a linha da ocorrência." 
+
+```python
+def t_error(t):
+    print(f"Caractere ilegal '{t.value[0]}' na linha {t.lineno}")
+    t.lexer.skip(1)
+```
+
+
+## 2. Análise sintática
+Após a análise léxica, o passo seguinte no processo de compilação é a análise sintática. 
+
+Nesta fase, recorreu-se à biblioteca PLY (Python Lex-Yacc) para a implementação. Foram elaboradas regras sintáticas para permitir o reconhecimento das construções fundamentais da linguagem Pascal, tais como a declaração de variáveis, estruturas de controlo e operações aritméticas. 
+
+O objetivo principal desta etapa consiste em validar se a sequência de tokens gerada anteriormente respeita as normas gramaticais da linguagem. Caso o código seja válido, o analisador organiza a informação numa estrutura lógica que permite o processamento posterior pelo compilador. 
+
+## 2.1. Gramática
+A gramática do nosso compilador Pascal foi desenvolvida para ser compatível com o parser LALR(1) da biblioteca PLY (Python Lex-Yacc). Trata-se de uma gramática independente de contexto, recursiva à esquerda, que suporta as principais construções da linguagem Pascal Standard, incluindo funcionalidades avançadas como arrays, funções, procedimentos e constantes. 
+
+A precedência e associatividade dos operadores são definidas implicitamente através da estrutura hierárquica da gramática, garantindo que as operações aritméticas e lógicas são avaliadas na ordem correta. 
+
+### Estrutura do programa
+A regra p_Program define a estrutura global de um programa Pascal, que deve começar com a palavra-chave program, seguida de um identificador, declarações opcionais e o bloco principal delimitado por begin e end. 
+
+```python
+def p_Program(t):
+    r'Program : PROGRAM ID ";" Code "."'
+    t[0] = t[4] + ['stop\n']
+```
+A regra p_Code organiza o programa em declarações (variáveis, constantes, funções e procedimentos) seguidas do bloco de comandos principal. O código gerado insere a instrução start no início, seguida pelas alocações de variáveis globais. 
+
+```python
+def p_Code(t):
+    r'Code : Declarations BEGIN Blocks END'
+    # O start deve vir ANTES das variáveis globais e do código
+    t[0] = ["start\n"] + t[1] + t[3]
+```
+
+### Declarações
+O compilador suporta quatro tipos de declarações, processadas pela regra p_Declarations: 
+
+* Variáveis (VAR)
+* Constantes (CONST)
+* Funções (FUNCTION)
+* Procedimentos (PROCEDURE)
+
+```python
+def p_Declarations_vars(t):
+    r'Declarations : Vars Declarations'
+    t[0] = t[1] + t[2]
+
+def p_Declarations_consts(t):
+    r'Declarations : Consts Declarations'
+    t[0] = t[1] + t[2]
+
+def p_Declarations_functions(t):
+    r'Declarations : Functions Declarations'
+    t[0] = t[1] + t[2]
+
+def p_Declarations_procedures(t):
+    r'Declarations : Procedures Declarations'
+    t[0] = t[1] + t[2]
+```
+
+### Variáveis
+As variáveis são declaradas através de listas de identificadores associados a tipos. A regra p_VarList processa cada declaração e regista as variáveis na tabela de símbolos (parser.var), associando-as a offsets na stack global.
+
+```python
+def p_VarList(t):
+    r'VarList : IDList ":" Type ";" VarList'
+    pushcode = []
+    for var_name in t[1]:
+        var_type = t[3]
+        if isinstance(var_type, tuple) and var_type[0] == 'array':
+            array_size = var_type[2] - var_type[1] + 1
+            parser.arrays[var_name] = parser.varcount
+            parser.var[var_name] = parser.varcount
+            parser.vartype[var_name] = var_type
+            pushcode.append(f'pushn {array_size}\n')
+            parser.varcount += array_size
+        else:
+            parser.var[var_name] = parser.varcount
+            parser.vartype[var_name] = var_type
+            pushcode.append(parser.pushdict.get(var_type, 'pushi 0\n'))
+            parser.varcount += 1
+    
+    t[0] = t[5] + pushcode
+```
+Detalhe importante: O código de alocação é inserido na ordem inversa (t[5] + pushcode) para garantir que os índices na stack correspondam à ordem de declaração no código fonte. 
+
+### Arrays
+
+Arrays são suportados através da sintaxe array[inicio..fim] de tipo. A implementação utiliza a instrução pushn para alocar espaço contíguo e regista o offset base e os limites em estruturas auxiliares: 
+```python
+def p_Type_array(t):
+    r'Type : ARRAY "[" INT DOTDOT INT "]" OF Type'
+    t[0] = ('array', t[3], t[5], t[8])
+```
+
+O acesso a elementos do array é feito através de cálculo dinâmico de endereços: 
+```python
+def p_Factor_array_access(t):
+    r'Factor : ID "[" Exp "]"'
+    if t[1] in parser.arrays:
+        array_base = parser.arrays[t[1]]
+        start_index = parser.vartype[t[1]][1]
+        
+        t[0] = [
+            "pushgp\n",
+            f"pushi {array_base}\n",
+            "padd\n"
+        ] + t[3] + [
+            f"pushi {start_index}\n",
+            "sub\n",
+            "padd\n",
+            "load 0\n"
+        ]
+    else:
+        t[0] = []
+```
+
+### Consatntes
+As constantes são processadas em tempo de compilação e armazenadas num dicionário (parser.constants). Quando referenciadas no código, são substituídas diretamente pelos seus valores: 
+
+```python
+def p_ConstDefs(t):
+    r'ConstDefs : ID "=" ConstValue ";" ConstDefs'
+    parser.constants[t[1]] = t[3]
+    t[0] = []
+```
+
+
+## 3. Testes
+
+## 3.1. Olá, Mundo!
+### Input
+```pascal
+program HelloWorld;
+begin
+writeln('Ola, Mundo!');
+end.
+```
+### Output
+
+
+## 3.2. Fatorial
+### Input
+```pascal
+program Fatorial;
+var
+n, i, fat: integer;
+begin
+writeln('Introduza um número inteiro positivo:');
+readln(n);
+fat := 1;
+for i := 1 to n do
+fat := fat * i;
+writeln('Fatorial de ', n, ': ', fat);
+end.
+```
+### Output
+
+
+
+## 3.3. Verificação de Número Primo
+### Input
+```pascal
+program NumeroPrimo;
+var
+num, i: integer;
+primo: boolean;
+begin
+writeln('Introduza um número inteiro positivo:');
+readln(num);
+primo := true;
+i := 2;
+while (i <= (num div 2)) and primo do
+begin
+if (num mod i) = 0 then
+primo := false;
+i := i + 1;
+end;
+if primo then
+writeln(num, ' é um número primo')
+else
+writeln(num, ' não é um número primo')
+end.
+```
+### Output
+
+
+
+## 3.4. Soma de uma lista de inteiros
+### Input
+```pascal
+program SomaArray;
+var
+numeros: array[1..5] of integer;
+i, soma: integer;
+begin
+soma := 0;
+writeln('Introduza 5 números inteiros:');
+for i := 1 to 5 do
+begin
+readln(numeros[i]);
+soma := soma + numeros[i];
+end;
+writeln('A soma dos números é: ', soma);
+end.
+```
+### Output
+
+
+
+## 3.5. Conversão binário-decimal
+### Input
+```pascal
+program BinarioParaInteiro;
+function BinToInt(bin: string): integer;
+var
+i, valor, potencia: integer;
+begin
+valor := 0;
+potencia := 1;
+for i := length(bin) downto 1 do
+begin
+if bin[i] = '1' then
+valor := valor + potencia;
+potencia := potencia * 2;
+end;
+BinToInt := valor;
+end;
+var
+bin: string;
+valor: integer;
+begin
+writeln('Introduza uma string binária:');
+readln(bin);
+valor := BinToInt(bin);
+writeln('O valor inteiro correspondente é: ', valor);
+end.
+```
+### Output
