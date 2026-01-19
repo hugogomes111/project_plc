@@ -560,3 +560,11 @@ writeln('O valor inteiro correspondente é: ', valor);
 end.
 ```
 ### Output
+
+
+
+## Conclusão
+
+Este trabalho permitiu-nos desenvolver um compilador funcional para a linguagem Pascal, consolidando na prática os conceitos aprendidos em Processamento de Linguagens. Apesar de alguns desafios encontrados na implementação completa da análise semântica, o compilador cumpre os objetivos principais, traduzindo algoritmos complexos para a máquina virtual EWVM com desempenho satisfatório.
+
+Embora certas funcionalidades da linguagem tenham sido abordadas de forma mais superficial por opção de projeto, o resultado final é coerente e bem fundamentado. A experiência permitiu-nos dominar ferramentas como ply.lex e ply.yacc, compreendendo melhor as fases de construção de um compilador. No geral, o grupo está satisfeito com o conhecimento adquirido e com a ferramenta funcional que desenvolvemos, que demonstra a complexidade e o fascínio da tradução de linguagens de programação.
